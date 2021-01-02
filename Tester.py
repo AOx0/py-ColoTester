@@ -38,7 +38,7 @@ except ModuleNotFoundError:
 import sys
 import os
 
-version : float = 0.122
+version : float = 0.123
 
 class _Capturing(list):
     def __enter__(self):
@@ -53,7 +53,7 @@ class _Capturing(list):
 class TstHandler:
     
     @staticmethod
-    def testFunction(function, testResult, testInputs) -> [str]:
+    def testFunction(function, testInputs) -> [str]:
         with _Capturing() as output:
             sys.stdin = StringIO(testInputs)
             function()
@@ -61,17 +61,23 @@ class TstHandler:
 
 class test1():
     
-    testResult = "Hola mi nombre es Daniel, tengo 27 años y vengo de España"
-    testInputs = "Daniel\n27\nEspaña"
-    
+    testResult : [str] = ["Hola mi nombre es Daniel, tengo 27 años y vengo de España"]
+    testInputs : [str] = ["Daniel\n27\nEspaña"]
+    finalResult : int = 0
+
     @staticmethod
     def test(function, testResult = testResult, testInputs = testInputs):
-        output = TstHandler.testFunction(function, testResult, testInputs)
+        for i in range(len(testResult)-1):
+            output = TstHandler.testFunction(function, testInputs[i])
+            if testResult[i].lower() in [x.lower() for x in output]:
+                testBoolResults += 0:
+            else:
+                testBoolResults += 1:
         
-        if testResult.lower() in [i.lower() for i in output]:
-            print("Correcto")
+        if testBoolResults == 0:
+            print("Test 1: Correct")
         else:
-            print("Incorrecto :D")
+            print("Test 1: Incorrect. One or more cases returned a bad/unexpected result")
     
     def printTest():
         print("Una función que por medio de inputs (3) reciba un nombre [Daniel], una edad [27] y un país de origen [España] e imprima el mensaje 'Hola mi nombre es [NOMBRE], tengo [EDAD] años y vengo de [PAIS]'.")
@@ -103,7 +109,7 @@ class _UpdateManager():
                 print(">> Warning: A new version of Tester is available.")
                 print(f">> Updating Tester v. {version} -> {gitVersion}...")
                 os.system("curl -sS https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py -o Tester.py")
-                print(">> Success: Tester updated successfully!")
+                print("\n>> Success: Tester updated successfully!")
             except:
                 print(f">> Error: Something went wrong while updating Tester [Line {_getCurrentLine()}]")
                 return
