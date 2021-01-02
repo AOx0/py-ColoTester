@@ -70,11 +70,11 @@ class test1():
         for i in range(len(testResult)-1):
             output = TstHandler.testFunction(function, testInputs[i])
             if testResult[i].lower() in [x.lower() for x in output]:
-                testBoolResults += 0:
+                finalResult += 0:
             else:
-                testBoolResults += 1:
+                finalResult += 1:
         
-        if testBoolResults == 0:
+        if finalResult == 0:
             print("Test 1: Correct")
         else:
             print("Test 1: Incorrect. One or more cases returned a bad/unexpected result")
