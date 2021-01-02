@@ -105,7 +105,6 @@ class _UpdateManager():
 
         if gitVersion != version and gitVersion > version:
             try:
-                _UpdateManager._fkLoading()
                 print(">> Warning: A new version of Tester is available.")
                 print(f">> Updating Tester v. {version} -> {gitVersion}...")
                 os.system("curl -sS https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py -o Tester.py")
