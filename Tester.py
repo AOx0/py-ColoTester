@@ -38,7 +38,7 @@ except ModuleNotFoundError:
 import sys
 import os
 
-version : float = 0.124
+version : float = 0.126
 
 class _Capturing(list):
     def __enter__(self):
@@ -50,7 +50,7 @@ class _Capturing(list):
         del self._stringio 
         sys.stdout = self._stdout
 
-class TstHandler:
+class _TstHandler:
     
     @staticmethod
     def testFunction(function, testInputs) -> [str]:
@@ -61,14 +61,18 @@ class TstHandler:
 
 class test1():
     
-    testResult : [str] = ["Hola mi nombre es Daniel, tengo 27 años y vengo de España"]
-    testInputs : [str] = ["Daniel\n27\nEspaña"]
+    testResult : [str] = [
+            "Hola mi nombre es Daniel, tengo 27 años y vengo de España",
+            "Hola mi nombre es fernando, tengo 19 años y vengo de méxico",
+            "Hola mi nombre es Sprouth, tengo 90 años y vengo de USA"
+    ]
+    testInputs : [str] = ["Daniel\n27\nEspaña", "Fernando\n19\nMéxico", "Sprouth\n90\nUSA"]
     finalResult : int = 0
 
     @staticmethod
     def test(function, testResult = testResult, testInputs = testInputs, finalResult = finalResult):
         for i in range(len(testResult)-1):
-            output = TstHandler.testFunction(function, testInputs[i])
+            output = _TstHandler.testFunction(function, testInputs[i])
             if testResult[i].lower() in [x.lower() for x in output]:
                 finalResult += 0
             else:
@@ -81,6 +85,36 @@ class test1():
     
     def printTest():
         print("Una función que por medio de inputs (3) reciba un nombre [Daniel], una edad [27] y un país de origen [España] e imprima el mensaje 'Hola mi nombre es [NOMBRE], tengo [EDAD] años y vengo de [PAIS]'.")
+
+
+class test2():
+    
+    testResult : [float] = [
+            4.033204557385719,
+            6.829905940696578,
+            64.44744357483128
+
+    ]
+    testInputs : [str] = [[4,5],[8,8], [50,99]]
+    finalResult : int = 0
+
+    @staticmethod
+    def test(function, testResult = testResult, testInputs = testInputs, finalResult = finalResult):
+        for i in range(len(testResult)-1):
+            output = function(testInputs[i][0], testInputs[i][1])
+            if testResult[i] == output:
+                finalResult += 0
+            else:
+                finalResult += 1
+        
+        if finalResult == 0:
+            print("Test 2: Correct")
+        else:
+            print("Test 2: Incorrect. One or more cases returned a bad/unexpected result")
+    
+    def printTest():
+        print("Una función que replique la función matemática f(x, y) = ∜( x² + y² + (xy/2) * √( x * y³ ) ). Ejemplo, cuando 'x' vale 4 y 'y' vale 5 el resultado que devuelve es '4.033204557385719'")
+
 
 class _UpdateManager():
 
