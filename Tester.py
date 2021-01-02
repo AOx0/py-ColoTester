@@ -70,9 +70,9 @@ class test1():
         for i in range(len(testResult)-1):
             output = TstHandler.testFunction(function, testInputs[i])
             if testResult[i].lower() in [x.lower() for x in output]:
-                finalResult += 0:
+                finalResult += 0
             else:
-                finalResult += 1:
+                finalResult += 1
         
         if finalResult == 0:
             print("Test 1: Correct")
