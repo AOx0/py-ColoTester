@@ -38,7 +38,7 @@ except ModuleNotFoundError:
 import sys
 import os
 
-version : float = 0.123
+version : float = 0.124
 
 class _Capturing(list):
     def __enter__(self):
@@ -66,7 +66,7 @@ class test1():
     finalResult : int = 0
 
     @staticmethod
-    def test(function, testResult = testResult, testInputs = testInputs):
+    def test(function, testResult = testResult, testInputs = testInputs, finalResult = finalResult):
         for i in range(len(testResult)-1):
             output = TstHandler.testFunction(function, testInputs[i])
             if testResult[i].lower() in [x.lower() for x in output]:
