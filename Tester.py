@@ -38,7 +38,7 @@ except ModuleNotFoundError:
 import sys
 import os
 
-version : float = 0.126
+version : float = 0.13
 
 class _Capturing(list):
     def __enter__(self):
@@ -114,6 +114,36 @@ class test2():
     
     def printTest():
         print("Una función que replique la función matemática f(x, y) = ∜( x² + y² + (xy/2) * √( x * y³ ) ). Ejemplo, cuando 'x' vale 4 y 'y' vale 5 el resultado que devuelve es '4.033204557385719'")
+
+
+class test3():
+    
+    testResult : [str] = [
+            "mayor",
+            "iguales",
+            "menor"
+    ]
+    testInputs : [str] = ["10\n3", "7\n7", "1\n5"]
+    finalResult : int = 0
+
+    @staticmethod
+    def test(function, testResult = testResult, testInputs = testInputs, finalResult = finalResult):
+        for i in range(len(testResult)-1):
+            output = _TstHandler.testFunction(function, testInputs[i])
+            if testResult[i].lower() in [x.lower() for x in output]:
+                finalResult += 0
+            else:
+                finalResult += 1
+        
+        if finalResult == 0:
+            print("Test 3: Correct")
+        else:
+            print("Test 3: Incorrect. One or more cases returned a bad/unexpected result")
+    
+    def printTest():
+        print("Este problema consiste en leer dos valores y escribir si son iguales, si el primero es menor que el segundo, o si el primero es mayor al segundo. Si son iguales debes imprimir 'iguales', si el primero es menor debes imprimir 'menor' y si el primero es mayor debes imprimir 'mayor'. Ejemplo: input 1: 10, input 2: 3, imprime: 'mayor'")
+
+
 
 
 class _UpdateManager():
