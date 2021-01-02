@@ -1,5 +1,4 @@
 from io import StringIO 
-from time import sleep
 
 from inspect import currentframe
 
@@ -11,16 +10,9 @@ try:
     import requests
 except ModuleNotFoundError:
     
-    def _fkLoading():
-        for _ in range(4):
-            print("*", end="")
-            sleep(0.5)
-
-    _fkLoading()
-    print(" 'Tester' needs 'requests' module to work.")
+    print(">> Warning: Tester needs 'requests' module to work.")
     
-    _fkLoading()
-    print("Installing 'requests' module...\n")
+    print(">> Installing 'requests' module...\n")
     
     try:
         import pip
@@ -35,19 +27,18 @@ except ModuleNotFoundError:
 
         try:
             import requests
-            _fkLoading()
-            print("'requests' module installed successfully")
+            print(">> Success: 'requests' module installed successfully")
         except ModuleNotFoundError:
-            print(f"Something went wrong while updating Tester [Line {_getCurrentLine()}]\n")
+            print(f">> Error: Something went wrong while updating Tester [Line {_getCurrentLine()}]\n")
         
         
     except:
-        print("fSomething went wrong while updating Tester [Line {_getCurrentLine()}]")
+        print(f">> Error: Something went wrong while updating Tester [Line {_getCurrentLine()}]")
 
 import sys
 import os
 
-version : float = 0.121
+version : float = 0.122
 
 class _Capturing(list):
     def __enter__(self):
@@ -76,7 +67,7 @@ class test1():
     @staticmethod
     def test(function, testResult = testResult, testInputs = testInputs):
         output = TstHandler.testFunction(function, testResult, testInputs)
-        test1 = testResult.lower() in [i.lower() for i in output]
+        
         if testResult.lower() in [i.lower() for i in output]:
             print("Correcto")
         else:
@@ -98,32 +89,23 @@ class _UpdateManager():
         return float(gitVersion)
     
     @staticmethod
-    def _fkLoading():
-        for _ in range(4):
-            print("*", end="")
-            sleep(0.5)
-
-    @staticmethod
     def update():
         
         try:
             gitVersion : float = _UpdateManager._getRepoVersion()
         except:
-            print(f"Failed to get GitHub version [Line _getCurrentLine()]")
+            print(f">> Error: Failed to get GitHub version. Tester [Line _getCurrentLine()]")
             return 
 
         if gitVersion != version and gitVersion > version:
             try:
-                for _ in range(4):
-                    print("*", end="")
-                    sleep(0.5)
-                
                 _UpdateManager._fkLoading()
-                print(f" Actualizando 'Tester' v. {version} -> {gitVersion}...")
+                print(">> Warning: A new version of Tester is available.")
+                print(f">> Updating Tester v. {version} -> {gitVersion}...")
                 os.system("curl -sS https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py -o Tester.py")
-                print("Tester actualizado!")
+                print(">> Success: Tester updated successfully!")
             except:
-                print(f"Something went wrong while updating Tester [Line {_getCurrentLine()}]")
+                print(f">> Error: Something went wrong while updating Tester [Line {_getCurrentLine()}]")
                 return
 
 
