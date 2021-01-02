@@ -1,4 +1,4 @@
-# Py-ColoTester
+# py-ColoTester
 
 Repo dedicated to creating a python script to give homework/work/tests to anyone who is learning python. 
 
