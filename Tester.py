@@ -1,6 +1,12 @@
 from io import StringIO 
 from time import sleep
 
+from inspect import currentframe
+
+def _getCurrentLine():
+    cf = currentframe()
+    return cf.f_back.f_lineno
+
 try:
     import requests
 except ModuleNotFoundError:
@@ -32,16 +38,16 @@ except ModuleNotFoundError:
             _fkLoading()
             print("'requests' module installed successfully")
         except ModuleNotFoundError:
-            print("Something went wrong while updating Tester [Line 35]\n")
+            print(f"Something went wrong while updating Tester [Line {_getCurrentLine()}]\n")
         
         
     except:
-        print("Something went wrong while updating Tester [Line 39]")
+        print("fSomething went wrong while updating Tester [Line {_getCurrentLine()}]")
 
 import sys
 import os
 
-version : float = 0.12
+version : float = 0.121
 
 class _Capturing(list):
     def __enter__(self):
@@ -70,7 +76,7 @@ class test1():
     @staticmethod
     def test(function, testResult = testResult, testInputs = testInputs):
         output = TstHandler.testFunction(function, testResult, testInputs)
-        print(output, testResult.lower())
+        test1 = testResult.lower() in [i.lower() for i in output]
         if testResult.lower() in [i.lower() for i in output]:
             print("Correcto")
         else:
@@ -103,7 +109,7 @@ class _UpdateManager():
         try:
             gitVersion : float = _UpdateManager._getRepoVersion()
         except:
-            print("Failed to get GitHub version [Line 104]")
+            print(f"Failed to get GitHub version [Line _getCurrentLine()]")
             return 
 
         if gitVersion != version and gitVersion > version:
@@ -117,7 +123,7 @@ class _UpdateManager():
                 os.system("curl -sS https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py -o Tester.py")
                 print("Tester actualizado!")
             except:
-                print("Something went wrong while updating Tester [Line 118]")
+                print(f"Something went wrong while updating Tester [Line {_getCurrentLine()}]")
                 return
 
 
