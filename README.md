@@ -1,6 +1,6 @@
 # Py-ColoTester
 
-Repo dedicated to create a python script to give homework/work/tests to anyone who is learning python.
+Repo dedicated to creating a python script to give homework/work/tests to anyone who is learning python. 
 
 
 
@@ -20,11 +20,10 @@ curl -sS https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py -
 
 ## How it works
 
-1.  You are given a series of tasks (tests). Each tests has a small explanation, the rules and requisites your function must follow and an example of the inputs and outputs you should get. With this information you have to write a function (like you want), make sure you follow all requisites.
+1.  You are given a series of tasks (tests). Each test has a small explanation, the rules and requisites your function must follow, and an example of the inputs and outputs you should get. With this information, you have to write a function (like you want) that follows all requisites.
+2.  When you think you're done it's time to test the function. When testing, Tester gives various inputs and parameters that are already verified and checks that all outputs are correct, with this method you have to make real Programmation.
 
-2.  When you think you're done it's time to test the function. When testing, Tester gives various inputs and parameters that are already verified and checks that all outputs are correct, with this method you have to make real programation.
-
-*NOTE: Everytime you use Tester in your files its gonna look and try to update himself. If any module is missing for it to work it will also intall that automatically.*
+*NOTE: Every time you use Tester in your files it's gonna look and try to update himself. If any module is missing for it to work it will also install that automatically.*
 
 
 
@@ -57,7 +56,7 @@ def test1():
 
 
 
-3.  Once you finish programming the function the test's instructions asked for it's time to test it. You can do this like in the following example:
+3.  Once you have finished programming the function the test's instructions asked for it's time to test it. You can do it like in the following example:
 
 ```python
 import Tester
