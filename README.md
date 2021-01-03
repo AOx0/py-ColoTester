@@ -9,9 +9,9 @@ Python script to give homework/work/tests to anyone learning python, in my case 
 1.  [Installation](https://github.com/AOx0/py-ColoTester#installation)
 2.  [How it works](https://github.com/AOx0/py-ColoTester#how-it-works)
 3.  [Tests](https://github.com/AOx0/py-ColoTester#tests)
-     1.  Test 1
-     2.  Test 2
-     3.  Test 3
+     1.  [Test 1](https://github.com/AOx0/py-ColoTester#test-1--testertest1)
+     2.  [Test 2](https://github.com/AOx0/py-ColoTester#test-2--testertest2)
+     3.  [Test 3](https://github.com/AOx0/py-ColoTester#test-3--testertest3)
 
 
 
@@ -115,9 +115,11 @@ Remember:
 
 
 
-### Test 1  `Tester.test1`
+## Test 1  `Tester.test1`
 
-`Tester.test1.test_info()` :  Write a function that has 3 inputs asking for a `name` (e.g. 'Daniel'), an `age` (e.g. '27') and a `country` (e.g. 'Spain'). The function has to print a message with the exact following structure **'Hi, my name is `name` from `country`. I'm `age` years old.'**
+#### Tester.test1.test_info()
+
+ Write a function that has 3 inputs asking for a `name` (e.g. 'Daniel'), an `age` (e.g. '27') and a `country` (e.g. 'Spain'). The function has to print a message with the exact following structure **'Hi, my name is `name` from `country`. I'm `age` years old.'**
 
 
 
@@ -125,15 +127,15 @@ Remember:
 | ------------------------- | --------------------------------------------------- |
 | Daniel<br />27<br />Spain | Hi, my name is Daniel from Spain. I'm 27 years old. |
 
-
-
 As always, to test your function pass it's name as an argument to `Tester.test1.test()`. E.g. `Tester.test1.test(myFunctionName)`
 
 
 
-### Test 2  `Tester.test2`
+## Test 2  `Tester.test2`
 
-`Tester.test2.test_info()` :  Write a function that replicates the mathematical function `f(x, y) = ∜(x² + y² + (xy/2) * √(x*y³))`. 
+#### Tester.test2.test_info() 
+
+Write a function that replicates the mathematical function `f(x, y) = ∜(x² + y² + (xy/2) * √(x*y³))`. 
 
 `x` and `y` must be arguments of the function, the result must be returned and not printed. E.g. when `x` is equal to 4 and `y` is equal to 5, the returned result is `4.033204557385719`
 
@@ -144,15 +146,15 @@ As always, to test your function pass it's name as an argument to `Tester.test1.
 | ----------------- | ----------------- |
 | x = 4,<br />y = 5 | 4.033204557385719 |
 
-
-
 As always, to test your function pass it's name as an argument to `Tester.test2.test()`. E.g. `Tester.test2.test(myFunctionName)`
 
 
 
-### Test 3  `Tester.test3`
+## Test 3  `Tester.test3`
 
-`Tester.test3.test_info()` :  Write a function that has two inputs that are supposed to receive `int`. If both of the stored input values are the same print `equal`, if the first value is the smallest print `minor` or if the first value is the highest print `major`. E.g: input_1 = "10", input_2 = "3", prints: *'higher'*.
+#### Tester.test3.test_info() 
+
+Write a function that has two inputs that are supposed to receive `int`. If both of the stored input values are the same print `equal`, if the first value is the smallest print `minor` or if the first value is the highest print `major`. E.g: input_1 = "10", input_2 = "3", prints: *'higher'*.
 
 
 
@@ -160,8 +162,6 @@ As always, to test your function pass it's name as an argument to `Tester.test2.
 | Input     | Output |
 | --------- | ------ |
 | 10<br />3 | higher |
-
-
 
 As always, to test your function pass it's name as an argument to `Tester.test3.test()`. E.g. `Tester.test3.test(myFunctionName)`
 
