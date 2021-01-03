@@ -3,10 +3,10 @@ import sys
 from inspect import currentframe
 from io import StringIO
 
-VERSION: float = 0.133
-IS_IOS: bool = 'ios' in sys.platform
+VERSION: float = 0.1331
+ON_IOS: bool = 'ios' in sys.platform
 
-if IS_IOS:
+if ON_IOS:
     import console
 
 
@@ -74,11 +74,11 @@ try:
     import requests
 except ModuleNotFoundError:
 
-    if IS_IOS:
-        _Cmd.PrintMsg.normal_warning("Tester needs 'requests' module to work.")
+    if ON_IOS:
+        _Cmd.PrintMsg.pythonista_warning("Tester needs 'requests' module to work.")
         print(">> Install 'requests' module with StaSh 'https://github.com/ywangd/stash'\n")
     else:
-        _Cmd.PrintMsg.pythonista_warning("Tester needs 'requests' module to work.")
+        _Cmd.PrintMsg.normal_warning("Tester needs 'requests' module to work.")
         print(">> Installing 'requests' module...\n")
 
         try:
@@ -246,21 +246,21 @@ class _UpdateManager:
         try:
             git_version: float = _UpdateManager.get_repo_version()
         except:
-            if IS_IOS:
+            if ON_IOS:
                 _Cmd.PrintMsg.pythonista_error(f"Failed to get GitHub version. Tester [Line {current_line()}]")
             else:
                 _Cmd.PrintMsg.normal_error(f"Failed to get GitHub version. Tester [Line {current_line()}]")
             return
 
         if git_version != VERSION and git_version > VERSION:
-            if IS_IOS:
+            if ON_IOS:
                 _Cmd.PrintMsg.pythonista_warning("A new version of Tester is available.")
             else:
                 _Cmd.PrintMsg.normal_warning("A new version of Tester is available.")
 
             print(f">> Updating Tester v. {VERSION} -> {git_version}...")
 
-            if IS_IOS:
+            if ON_IOS:
                 try:
                     _UpdateManager.update_ios()
                     _Cmd.PrintMsg.pythonista_success("Tester updated successfully!")
