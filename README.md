@@ -8,7 +8,7 @@ Repo dedicated to creating a python script to give homework/work/tests to anyone
 
 Availabe for `Linux` /` Windows` / `MacOs` for `Python 3.x +`
 
- To install the Tester **go to the path where your learning folder is** **and** **write the command** in your cmd / terminal / shell
+ To install the Tester **go to the path where your learning folder is** **and** **write the command** in your Cmd / terminal / shell
 
 ```bash
 curl -sS https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py -o Tester.py
