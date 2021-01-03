@@ -3,7 +3,7 @@ import sys
 from inspect import currentframe
 from io import StringIO
 
-VERSION: float = 0.135
+VERSION: float = 0.1351
 ON_IOS: bool = 'ios' in sys.platform
 ON_WINDOWS: bool = 'win' in sys.platform and 'dar' not in sys.platform
 
@@ -247,7 +247,7 @@ class _Test3:
         print(
             "Write a function that has two arguments that receive integers. If both values are the same print 'equal' "
             "if the first value is the smallest print 'minor' and if the first value is the highest print 'major'. "
-            "E.g: input_1: 10, input_2: 3, prints: 'higher'.")
+            "E.g: input_1: 10, input_2: 3, prints: 'major'.")
 
 
 class _UpdateManager:
