@@ -9,9 +9,9 @@ Python script to give homework/work/tests to anyone learning python, in my case 
 1.  [Installation](https://github.com/AOx0/py-ColoTester#installation)
 2.  [How it works](https://github.com/AOx0/py-ColoTester#how-it-works)
 3.  [Tests](https://github.com/AOx0/py-ColoTester#tests)
-     1.  [Test 1](https://github.com/AOx0/py-ColoTester#--testertest1)
-     2.  [Test 2](https://github.com/AOx0/py-ColoTester#--testertest2)
-     3.  [Test 3](https://github.com/AOx0/py-ColoTester#--testertest3)
+     1.  [Tester.test1](https://github.com/AOx0/py-ColoTester#testertest1)
+     2.  [Tester.test2](https://github.com/AOx0/py-ColoTester#testertest2)
+     3.  [Tester.test3](https://github.com/AOx0/py-ColoTester#testertest3)
 
 
 
@@ -115,7 +115,7 @@ Remember:
 
 
 
-
+ <br />
 
 ##  `Tester.test1`
 
@@ -133,7 +133,7 @@ Remember:
 
 As always, to test your function pass it's name as an argument to `Tester.test1.test()`. E.g. `Tester.test1.test(myFunctionName)`
 
-
+ <br />
 
 ##  `Tester.test2`
 
@@ -154,7 +154,7 @@ Write a function that replicates the mathematical function `f(x, y) = ∜(x² + 
 
 As always, to test your function pass it's name as an argument to `Tester.test2.test()`. E.g. `Tester.test2.test(myFunctionName)`
 
-
+ <br />
 
 ## `Tester.test3`
 
@@ -169,7 +169,7 @@ Write a function that has two inputs that are supposed to receive `int`. If both
 
 | Input     | Output |
 | --------- | ------ |
-| 10<br />3 | higher |
+| 10<br />3 | major  |
 
 As always, to test your function pass it's name as an argument to `Tester.test3.test()`. E.g. `Tester.test3.test(myFunctionName)`
 
