@@ -3,7 +3,7 @@ import sys
 from inspect import currentframe
 from io import StringIO
 
-VERSION: float = 0.1341
+VERSION: float = 0.135
 ON_IOS: bool = 'ios' in sys.platform
 ON_WINDOWS: bool = 'win' in sys.platform and 'dar' not in sys.platform
 
@@ -74,6 +74,7 @@ def current_line():
 if ON_WINDOWS:
     try:
         from colorama import init as init_colorama
+
         init_colorama()
     except ModuleNotFoundError:
         print(">> Warning: Tester needs 'colorama' module to work.")
@@ -81,6 +82,7 @@ if ON_WINDOWS:
 
         try:
             import pip
+
 
             def install(package):
                 if hasattr(pip, 'main'):
@@ -92,6 +94,7 @@ if ON_WINDOWS:
             install('colorama')
             try:
                 from colorama import init as init_colorama
+
                 init_colorama()
 
                 _Cmd.PrintMsg.normal_success("'colorama' module installed successfully")
@@ -99,7 +102,6 @@ if ON_WINDOWS:
                 print(f">> Error: Something went wrong while updating Tester [Line {current_line()}]")
         except:
             print(f">> Error: Something went wrong while updating Tester [Line {current_line()}]")
-
 
 try:
     import requests
@@ -133,6 +135,8 @@ except ModuleNotFoundError:
         except:
             _Cmd.PrintMsg.normal_error(f"Something went wrong while updating Tester [Line {current_line()}]")
 
+print("\n")
+
 
 class _Capturing(list):
     def __enter__(self):
@@ -157,11 +161,11 @@ class _TstHandler:
 
 class _Test1:
     _testResult: [str] = [
-        "Hola mi nombre es Daniel, tengo 27 años y vengo de España",
-        "Hola mi nombre es fernando, tengo 19 años y vengo de méxico",
-        "Hola mi nombre es Sprouth, tengo 90 años y vengo de USA"
+        "Hi, my name is Daniel from Spain. I'm 27 years old.",
+        "Hi, my name is Fernando from Mexico. I'm 19 years old.",
+        "Hi, my name is Sprouth from USA. I'm 16 years old."
     ]
-    _testInputs: [str] = ["Daniel\n27\nEspaña", "Fernando\n19\nMéxico", "Sprouth\n90\nUSA"]
+    _testInputs: [str] = ["Daniel\n27\nSpain", "Fernando\n19\nMexico", "Sprouth\n16\nUSA"]
     _finalResult: int = 0
 
     def test(self, function):
@@ -180,8 +184,9 @@ class _Test1:
     @staticmethod
     def test_info():
         print(
-            "Una función que por medio de inputs (3) reciba un nombre [Daniel], una edad [27] y un país de origen ["
-            "España] e imprima el mensaje 'Hola mi nombre es [NOMBRE], tengo [EDAD] años y vengo de [PAIS]'.")
+            "Write a function that has 3 inputs asking for a name (e.g. 'Daniel'), an age (e.g. '27') and a country ("
+            "e.g. 'Spain'). The function has to print a message with the exact following structure 'Hi, my name is ["
+            "NAME] from [COUNTRY]. I'm [AGE] years old.'")
 
 
 class _Test2:
@@ -210,15 +215,16 @@ class _Test2:
     @staticmethod
     def test_info():
         print(
-            "Una función que replique la función matemática f(x, y) = ∜( x² + y² + (xy/2) * √( x * y³ ) ). Ejemplo, "
-            "cuando 'x' vale 4 y 'y' vale 5 el resultado que devuelve es '4.033204557385719'")
+            "Write a function that replicates the mathematical function f(x, y) = ∜(x² + y² + (xy/2) * √(x*y³)). 'x' "
+            "and 'y' must be arguments of the function, the result must be returned and not printed. Example, "
+            "when 'x' is equal to 4 and 'y' is equal to 5, the returned result is '4.033204557385719'")
 
 
 class _Test3:
     _testResult: [str] = [
-        "mayor",
-        "iguales",
-        "menor"
+        "major",
+        "equal",
+        "minor"
     ]
     _testInputs: [str] = ["10\n3", "7\n7", "1\n5"]
     _finalResult: int = 0
@@ -239,10 +245,9 @@ class _Test3:
     @staticmethod
     def test_info():
         print(
-            "Este problema consiste en leer dos valores y escribir si son iguales, si el primero es menor que el "
-            "segundo, o si el primero es mayor al segundo. Si son iguales debes imprimir 'iguales', si el primero es "
-            "menor debes imprimir 'menor' y si el primero es mayor debes imprimir 'mayor'. Ejemplo: input 1: 10, "
-            "input 2: 3, imprime: 'mayor'")
+            "Write a function that has two arguments that receive integers. If both values are the same print 'equal' "
+            "if the first value is the smallest print 'minor' and if the first value is the highest print 'major'. "
+            "E.g: input_1: 10, input_2: 3, prints: 'higher'.")
 
 
 class _UpdateManager:
@@ -297,7 +302,8 @@ class _UpdateManager:
                     _Cmd.PrintMsg.pythonista_success("Tester updated successfully!")
 
                 except:
-                    _Cmd.PrintMsg.pythonista_error(f"Something went wrong while updating Tester [Line {current_line()}]")
+                    _Cmd.PrintMsg.pythonista_error(
+                        f"Something went wrong while updating Tester [Line {current_line()}]")
                     return
             else:
                 try:
@@ -308,6 +314,10 @@ class _UpdateManager:
                     _Cmd.PrintMsg.normal_error(f"Something went wrong while updating Tester [Line {current_line()}]")
                     return
 
+            print("\n")
+
+
+availableTests: [str] = ["test1", "test2", "test3"]
 
 if __name__ == 'Tester':
     _UpdateManager.update()
