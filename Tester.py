@@ -3,14 +3,14 @@ import sys
 from inspect import currentframe
 from io import StringIO
 
-VERSION: float = 0.132
+VERSION: float = 0.133
 IS_IOS: bool = 'ios' in sys.platform
 
 if IS_IOS:
     import console
 
 
-class Cmd:
+class _Cmd:
     class Colors:
         HEADER = '\033[95m'
         OKBLUE = '\033[94m'
@@ -25,7 +25,7 @@ class Cmd:
     class PrintMsg:
         @staticmethod
         def normal_warning(message):
-            print(f">> {Cmd.Colors.WARNING}Warning:{Cmd.Colors.ENDC} {message}")
+            print(f">> {_Cmd.Colors.WARNING}Warning:{_Cmd.Colors.ENDC} {message}")
 
         @staticmethod
         def pythonista_warning(message):
@@ -39,7 +39,7 @@ class Cmd:
 
         @staticmethod
         def normal_error(message):
-            print(f">> {Cmd.Colors.FAIL}Error:{Cmd.Colors.ENDC} {message}")
+            print(f">> {_Cmd.Colors.FAIL}Error:{_Cmd.Colors.ENDC} {message}")
 
         @staticmethod
         def pythonista_error(message):
@@ -53,7 +53,7 @@ class Cmd:
 
         @staticmethod
         def normal_success(message):
-            print(f">> {Cmd.Colors.OKGREEN}Success:{Cmd.Colors.ENDC} {message}")
+            print(f">> {_Cmd.Colors.OKGREEN}Success:{_Cmd.Colors.ENDC} {message}")
 
         @staticmethod
         def pythonista_success(message):
@@ -75,10 +75,10 @@ try:
 except ModuleNotFoundError:
 
     if IS_IOS:
-        Cmd.PrintMsg.normal_warning("Tester needs 'requests' module to work.")
+        _Cmd.PrintMsg.normal_warning("Tester needs 'requests' module to work.")
         print(">> Install 'requests' module with StaSh 'https://github.com/ywangd/stash'\n")
     else:
-        Cmd.PrintMsg.pythonista_warning("Tester needs 'requests' module to work.")
+        _Cmd.PrintMsg.pythonista_warning("Tester needs 'requests' module to work.")
         print(">> Installing 'requests' module...\n")
 
         try:
@@ -96,11 +96,11 @@ except ModuleNotFoundError:
             try:
                 import requests
 
-                Cmd.PrintMsg.normal_success("'requests' module installed successfully")
+                _Cmd.PrintMsg.normal_success("'requests' module installed successfully")
             except ModuleNotFoundError:
-                Cmd.PrintMsg.normal_error(f"Something went wrong while updating Tester [Line {current_line()}]")
+                _Cmd.PrintMsg.normal_error(f"Something went wrong while updating Tester [Line {current_line()}]")
         except:
-            Cmd.PrintMsg.normal_error(f"Something went wrong while updating Tester [Line {current_line()}]")
+            _Cmd.PrintMsg.normal_error(f"Something went wrong while updating Tester [Line {current_line()}]")
 
 
 class _Capturing(list):
@@ -125,23 +125,23 @@ class _TstHandler:
 
 
 class _Test1:
-    testResult: [str] = [
+    _testResult: [str] = [
         "Hola mi nombre es Daniel, tengo 27 años y vengo de España",
         "Hola mi nombre es fernando, tengo 19 años y vengo de méxico",
         "Hola mi nombre es Sprouth, tengo 90 años y vengo de USA"
     ]
-    testInputs: [str] = ["Daniel\n27\nEspaña", "Fernando\n19\nMéxico", "Sprouth\n90\nUSA"]
-    finalResult: int = 0
+    _testInputs: [str] = ["Daniel\n27\nEspaña", "Fernando\n19\nMéxico", "Sprouth\n90\nUSA"]
+    _finalResult: int = 0
 
     def test(self, function):
-        for i in range(len(self.testResult) - 1):
-            output = _TstHandler.test_function(function, self.testInputs[i])
-            if self.testResult[i].lower() in [x.lower() for x in output]:
-                self.finalResult += 0
+        for i in range(len(self._testResult) - 1):
+            output = _TstHandler.test_function(function, self._testInputs[i])
+            if self._testResult[i].lower() in [x.lower() for x in output]:
+                self._finalResult += 0
             else:
-                self.finalResult += 1
+                self._finalResult += 1
 
-        if self.finalResult == 0:
+        if self._finalResult == 0:
             print("Test 1: Correct")
         else:
             print("Test 1: Incorrect. One or more cases returned a bad/unexpected result")
@@ -154,24 +154,24 @@ class _Test1:
 
 
 class _Test2:
-    testResult: [float] = [
+    _testResult: [float] = [
         4.033204557385719,
         6.829905940696578,
         64.44744357483128
 
     ]
-    testInputs: [str] = [[4, 5], [8, 8], [50, 99]]
-    finalResult: int = 0
+    _testInputs: [str] = [[4, 5], [8, 8], [50, 99]]
+    _finalResult: int = 0
 
     def test(self, function):
-        for i in range(len(self.testResult) - 1):
-            output = function(self.testInputs[i][0], self.testInputs[i][1])
-            if self.testResult[i] == output:
-                self.finalResult += 0
+        for i in range(len(self._testResult) - 1):
+            output = function(self._testInputs[i][0], self._testInputs[i][1])
+            if self._testResult[i] == output:
+                self._finalResult += 0
             else:
-                self.finalResult += 1
+                self._finalResult += 1
 
-        if self.finalResult == 0:
+        if self._finalResult == 0:
             print("Test 2: Correct")
         else:
             print("Test 2: Incorrect. One or more cases returned a bad/unexpected result")
@@ -184,23 +184,23 @@ class _Test2:
 
 
 class _Test3:
-    testResult: [str] = [
+    _testResult: [str] = [
         "mayor",
         "iguales",
         "menor"
     ]
-    testInputs: [str] = ["10\n3", "7\n7", "1\n5"]
-    finalResult: int = 0
+    _testInputs: [str] = ["10\n3", "7\n7", "1\n5"]
+    _finalResult: int = 0
 
     def test(self, function):
-        for i in range(len(self.testResult) - 1):
-            output = _TstHandler.test_function(function, self.testInputs[i])
-            if self.testResult[i].lower() in [x.lower() for x in output]:
-                self.finalResult += 0
+        for i in range(len(self._testResult) - 1):
+            output = _TstHandler.test_function(function, self._testInputs[i])
+            if self._testResult[i].lower() in [x.lower() for x in output]:
+                self._finalResult += 0
             else:
-                self.finalResult += 1
+                self._finalResult += 1
 
-        if self.finalResult == 0:
+        if self._finalResult == 0:
             print("Test 3: Correct")
         else:
             print("Test 3: Incorrect. One or more cases returned a bad/unexpected result")
@@ -247,34 +247,34 @@ class _UpdateManager:
             git_version: float = _UpdateManager.get_repo_version()
         except:
             if IS_IOS:
-                Cmd.PrintMsg.pythonista_error(f"Failed to get GitHub version. Tester [Line {current_line()}]")
+                _Cmd.PrintMsg.pythonista_error(f"Failed to get GitHub version. Tester [Line {current_line()}]")
             else:
-                Cmd.PrintMsg.normal_error(f"Failed to get GitHub version. Tester [Line {current_line()}]")
+                _Cmd.PrintMsg.normal_error(f"Failed to get GitHub version. Tester [Line {current_line()}]")
             return
 
         if git_version != VERSION and git_version > VERSION:
             if IS_IOS:
-                Cmd.PrintMsg.pythonista_warning("A new version of Tester is available.")
+                _Cmd.PrintMsg.pythonista_warning("A new version of Tester is available.")
             else:
-                Cmd.PrintMsg.normal_warning("A new version of Tester is available.")
+                _Cmd.PrintMsg.normal_warning("A new version of Tester is available.")
 
             print(f">> Updating Tester v. {VERSION} -> {git_version}...")
 
             if IS_IOS:
                 try:
                     _UpdateManager.update_ios()
-                    Cmd.PrintMsg.pythonista_success("Tester updated successfully!")
+                    _Cmd.PrintMsg.pythonista_success("Tester updated successfully!")
 
                 except:
-                    Cmd.PrintMsg.pythonista_error(f"Something went wrong while updating Tester [Line {current_line()}]")
+                    _Cmd.PrintMsg.pythonista_error(f"Something went wrong while updating Tester [Line {current_line()}]")
                     return
             else:
                 try:
                     os.system(
                         "curl -sS https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py -o Tester.py")
-                    Cmd.PrintMsg.normal_success("Tester updated successfully!")
+                    _Cmd.PrintMsg.normal_success("Tester updated successfully!")
                 except:
-                    Cmd.PrintMsg.normal_error(f"Something went wrong while updating Tester [Line {current_line()}]")
+                    _Cmd.PrintMsg.normal_error(f"Something went wrong while updating Tester [Line {current_line()}]")
                     return
 
 
