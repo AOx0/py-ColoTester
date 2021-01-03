@@ -3,11 +3,46 @@ import sys
 from inspect import currentframe
 from io import StringIO
 
-VERSION: float = 0.1331
+VERSION: float = 0.134
 ON_IOS: bool = 'ios' in sys.platform
+ON_WINDOWS: bool = 'win' in sys.platform and 'dar' not in sys.platform
 
 if ON_IOS:
     import console
+
+
+def current_line():
+    return currentframe().f_back.f_lineno
+
+
+if ON_WINDOWS:
+    try:
+        from colorama import init as init_colorama
+        init_colorama()
+    except ModuleNotFoundError:
+        print(">> Warning: Tester needs 'colorama' module to work.")
+        print(">> Installing 'colorama' module...\n")
+
+        try:
+            import pip
+
+            def install(package):
+                if hasattr(pip, 'main'):
+                    pip.main(['install', package])
+                else:
+                    pip._internal.main(['install', package])
+
+
+            install('colorama')
+            try:
+                from colorama import init as init_colorama
+                init_colorama()
+
+                print(">> Sucess: 'colorama' module installed successfully")
+            except ModuleNotFoundError:
+                print(f">> Error: Something went wrong while updating Tester [Line {current_line()}]")
+        except:
+            print(f">> Error: Something went wrong while updating Tester [Line {current_line()}]")
 
 
 class _Cmd:
@@ -66,8 +101,7 @@ class _Cmd:
             console.set_color()
 
 
-def current_line():
-    return currentframe().f_back.f_lineno
+
 
 
 try:
