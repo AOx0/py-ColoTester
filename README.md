@@ -1,6 +1,6 @@
 # py-ColoTester
 
-Python script to give homework/work/tests to anyone learning python, in my case to some friends. 
+Python script to give homework/work/tests to anyone learning python, in my case to some friends. Made for `Python 3.X`+
 
 
 
@@ -17,39 +17,31 @@ Python script to give homework/work/tests to anyone learning python, in my case 
 
 ## Installation
 
-Made for `Python 3.X`+
+If you have installed the `requests` module you can use the code provided for the Pythonista 3 installation method.
 
-
-
-#### Pythonista 3
-
-To install the Tester make a new file or go to the Console view and paste the code:
-
-```python
-import requests as r;exec(r.get("https://git.io/JLb6G").content)
-```
-
-
-
-#### Linux 
-
-To install the Tester `curl` is necessary. In `Linux` you can install it with:
-
-```bash
-sudo apt install curl
-```
-
-
-
-#### Installation
-
- To install the Tester **go to the path where your learning folder with all your .py files is and write the command** in your cmd / terminal / shell
+To install open your shell/cmd/terminal/etc and **go to the path where your learning folder is** (with all your *.py files) **and write the command**:
 
 ```bash
 curl -sS https://git.io/JLb6G -o Tester.py
 ```
 
-*NOTE*: *If you know how imports work then write the command at any path and make sure to import Tester correctly on your python files.*
+The command will create a file named `Tester.py` that you can then import to files in the same directory.
+
+
+
+*NOTE*: *If you know how imports work then write the command at any path and make sure to import Tester correctly in your python files.*
+
+
+
+#### Installation - Pythonista 3 
+
+To install the Tester make a new file or go to the Console view and paste-run the code:
+
+```python
+import requests as r;exec(r.get("https://git.io/JLb6G").content)
+```
+
+The code will create a file named `Tester.py` that you can then import to files in the same directory. 
 
 
 
@@ -58,7 +50,7 @@ curl -sS https://git.io/JLb6G -o Tester.py
 1.  You are given a series of tasks (tests). Each test has a small explanation, the rules and requisites your function must follow, and an example of the inputs and outputs or arguments and return you should get. With this information, you have to write a function (like you want) that fullfills all requisites.
 2.  When you think your function is ready it's time to test it. When testing, `Tester` gives various inputs/arguments that are already verified and checks that all outputs/returns are correct, with this method you have to make real code.
 
-*NOTE: Every time you use Tester in your files it's going to try to update itself. If any module is missing for it to work it will also install the module automatically.*
+*NOTE: Every time you use Tester in your files it's going to try to update itself. If any module is missing for it to work it will also try install the module automatically.*
 
 
 
@@ -71,7 +63,9 @@ import Tester
 
 Tester.test1.test_info() 
 # Prints:
-# Una función que por medio de inputs (3) reciba un nombre [Daniel], una edad [27] y un país de origen [España] e imprima el mensaje 'Hola mi nombre es [NOMBRE], tengo [EDAD] años y vengo de [PAIS]' 
+# Write a function that has 3 inputs asking for a name (e.g. 'Daniel'), an age (e.g. '27') and a country
+# (e.g. 'Spain'). The function has to print a message with the exact following structure 'Hi, my name is
+# [NAME] from [COUNTRY]. I'm [AGE] years old.' 
 ```
 
 
