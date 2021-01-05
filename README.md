@@ -6,12 +6,14 @@ Python script to give homework/work/tests to anyone learning python, in my case 
 
 #### Contents:
 
-1.  [Installation](https://github.com/AOx0/py-ColoTester#installation)
-2.  [How it works](https://github.com/AOx0/py-ColoTester#how-it-works)
-3.  [Tests](https://github.com/AOx0/py-ColoTester#tests)
-     1.  [Tester.test1](https://github.com/AOx0/py-ColoTester#testertest1)
-     2.  [Tester.test2](https://github.com/AOx0/py-ColoTester#testertest2)
-     3.  [Tester.test3](https://github.com/AOx0/py-ColoTester#testertest3)
+-   [Installation](https://github.com/AOx0/py-ColoTester#installation)
+
+-   [How it works](https://github.com/AOx0/py-ColoTester#how-it-works)
+
+-   [Tests](https://github.com/AOx0/py-ColoTester#tests)
+    -   [Tester.test1](https://github.com/AOx0/py-ColoTester#testertest1)
+    -   [Tester.test2](https://github.com/AOx0/py-ColoTester#testertest2)
+    -   [Tester.test3](https://github.com/AOx0/py-ColoTester#testertest3)
 
 
 
@@ -110,7 +112,7 @@ Specifically, to test your functions you need to follow the next formula: `Teste
 
 ## Tests
 
-This section contains all tests, it's requirements, instructions and examples from  `Tester`.
+This section lists all `Tester` tests and their info (requirements, instructions and i/o examples).
 
 Remember:
 
