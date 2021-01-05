@@ -3,7 +3,7 @@ import sys
 from inspect import currentframe
 from io import StringIO
 
-VERSION: float = 0.1351
+VERSION: float = 0.136
 ON_IOS: bool = 'ios' in sys.platform
 ON_WINDOWS: bool = 'win' in sys.platform and 'dar' not in sys.platform
 
@@ -255,7 +255,7 @@ class _UpdateManager:
     @staticmethod
     def get_repo_version():
         git_version: str = requests.get(
-            'https://raw.githubusercontent.com/AOx0/py-ColoTester/master/version.txt').content.decode("utf-8")
+            'https://git.io/JLb6c').content.decode("utf-8")
         version: str = ""
         for i in git_version:
             if i.isdigit() or i == ".":
@@ -269,7 +269,7 @@ class _UpdateManager:
         Support for Pythonista 3
         """
 
-        contents = requests.get("https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py").content.decode(
+        contents = requests.get("https://git.io/JLb6G").content.decode(
             "utf-8")
         with open("Tester.py", "w", encoding="utf-8") as f:
             f.seek(0)
@@ -289,17 +289,27 @@ class _UpdateManager:
             return
 
         if git_version != VERSION and git_version > VERSION:
-            if ON_IOS:
-                _Cmd.PrintMsg.pythonista_warning("A new version of Tester is available.")
-            else:
-                _Cmd.PrintMsg.normal_warning("A new version of Tester is available.")
+            is_update: bool
 
-            print(f">> Updating Tester v. {VERSION} -> {git_version}...")
+            if os.path.exists("Tester.py"):
+                if ON_IOS:
+                    _Cmd.PrintMsg.pythonista_warning("A new version of Tester is available.")
+                else:
+                    _Cmd.PrintMsg.normal_warning("A new version of Tester is available.")
+
+                print(f">> Updating Tester [v.{VERSION}] -> [v.{git_version}]...")
+                is_update = True
+            else:
+                print(f">> Installing Tester [v.{VERSION}]")
+                is_update = False
 
             if ON_IOS:
                 try:
                     _UpdateManager.update_ios()
-                    _Cmd.PrintMsg.pythonista_success("Tester updated successfully!")
+                    if is_update:
+                        _Cmd.PrintMsg.pythonista_success("Tester updated successfully!")
+                    else:
+                        _Cmd.PrintMsg.pythonista_success("Tester installed successfully!")
 
                 except:
                     _Cmd.PrintMsg.pythonista_error(
@@ -308,8 +318,12 @@ class _UpdateManager:
             else:
                 try:
                     os.system(
-                        "curl -sS https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py -o Tester.py")
-                    _Cmd.PrintMsg.normal_success("Tester updated successfully!")
+                        "curl -sS https://git.io/JLb6G -o Tester.py")
+
+                    if is_update:
+                        _Cmd.PrintMsg.normal_success("Tester updated successfully!")
+                    else:
+                        _Cmd.PrintMsg.normal_success("Tester installed successfully!")
                 except:
                     _Cmd.PrintMsg.normal_error(f"Something went wrong while updating Tester [Line {current_line()}]")
                     return

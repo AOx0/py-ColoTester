@@ -17,7 +17,17 @@ Python script to give homework/work/tests to anyone learning python, in my case 
 
 ## Installation
 
-Availabe for `Linux` /` Windows` / `MacOs` for `Python 3.x +`
+Made for `Python 3.X`+
+
+
+
+#### Pythonista 3
+
+To install the Tester make a new file or go to the Console view and paste the code:
+
+```
+import requests;exec(requests.get("https://git.io/JLb6G").content.decode("utf-8"))
+```
 
 
 
@@ -36,7 +46,7 @@ sudo apt install curl
  To install the Tester **go to the path where your learning folder with all your .py files is and write the command** in your cmd / terminal / shell
 
 ```bash
-curl -sS https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py -o Tester.py
+curl -sS https://git.io/JLb6G -o Tester.py
 ```
 
 *NOTE*: *If you know how imports work then write the command at any path and make sure to import Tester correctly on your python files.*
