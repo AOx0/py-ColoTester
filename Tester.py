@@ -3,7 +3,7 @@ import sys
 from inspect import currentframe
 from io import StringIO
 
-VERSION: float = 0.136
+VERSION: float = 0.1361
 ON_IOS: bool = 'ios' in sys.platform
 ON_WINDOWS: bool = 'win' in sys.platform and 'dar' not in sys.platform
 
@@ -333,9 +333,9 @@ class _UpdateManager:
 
 availableTests: [str] = ["test1", "test2", "test3"]
 
-if __name__ == 'Tester':
-    _UpdateManager.update()
+_UpdateManager.update()
 
+if __name__ == 'Tester':
     test1 = _Test1()
     test2 = _Test2()
     test3 = _Test3()

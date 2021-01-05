@@ -25,8 +25,8 @@ Made for `Python 3.X`+
 
 To install the Tester make a new file or go to the Console view and paste the code:
 
-```
-import requests;exec(requests.get("https://git.io/JLb6G").content.decode("utf-8"))
+```python
+import requests as r;exec(r.get("https://git.io/JLb6G").content)
 ```
 
 
@@ -35,7 +35,7 @@ import requests;exec(requests.get("https://git.io/JLb6G").content.decode("utf-8"
 
 To install the Tester `curl` is necessary. In `Linux` you can install it with:
 
-```
+```bash
 sudo apt install curl
 ```
 
