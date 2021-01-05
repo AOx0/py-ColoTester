@@ -3,7 +3,7 @@ import sys
 from inspect import currentframe
 from io import StringIO
 
-VERSION: float = 0.1361
+VERSION: float = 0.1362
 ON_IOS: bool = 'ios' in sys.platform
 ON_WINDOWS: bool = 'win' in sys.platform and 'dar' not in sys.platform
 
@@ -288,20 +288,23 @@ class _UpdateManager:
                 _Cmd.PrintMsg.normal_error(f"Failed to get GitHub version. Tester [Line {current_line()}]")
             return
 
-        if git_version != VERSION and git_version > VERSION:
+        if os.path.exists("Tester.py"):
+            is_update = True
+        else:
+            is_update = False
+
+        if (git_version != VERSION and git_version > VERSION) or not is_update:
             is_update: bool
 
-            if os.path.exists("Tester.py"):
+            if is_update:
                 if ON_IOS:
                     _Cmd.PrintMsg.pythonista_warning("A new version of Tester is available.")
                 else:
                     _Cmd.PrintMsg.normal_warning("A new version of Tester is available.")
 
                 print(f">> Updating Tester [v.{VERSION}] -> [v.{git_version}]...")
-                is_update = True
             else:
                 print(f">> Installing Tester [v.{VERSION}]")
-                is_update = False
 
             if ON_IOS:
                 try:
