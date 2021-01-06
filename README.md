@@ -14,6 +14,7 @@ Python script to give homework/work/tests to anyone learning python, in my case 
     -   [Tester.test1](https://github.com/AOx0/py-ColoTester#testertest1)
     -   [Tester.test2](https://github.com/AOx0/py-ColoTester#testertest2)
     -   [Tester.test3](https://github.com/AOx0/py-ColoTester#testertest3)
+    -   [Tester.test4](https://github.com/AOx0/py-ColoTester#testertest4)
 
 
 
@@ -23,7 +24,7 @@ If you have installed the `requests` module you can use the code provided for th
 
 To install open your shell/cmd/terminal/etc and **go to the path where your learning folder is** (with all your *.py files) **and write the command**:
 
-```bash
+```shell
 curl -sS https://git.io/JLb6G -o Tester.py
 ```
 
@@ -179,5 +180,28 @@ Write a function that has two inputs that are supposed to receive `int`. If both
 
 As always, to test your function pass it's name as an argument to `Tester.test3.test()`. E.g. `Tester.test3.test(myFunctionName)`
 
+<br />
+
+## `Tester.test4`
+
+ <br />
+
+#### `Tester.test4.test_info() `
+
+Write a function that takes an undefined number of inputs containing a number (`int`) that represents a price. An input equal to "0" indicates the end of the input process. Sum all the prices and then make the following:
+
+	-	If the total price is less than $ 250, NO discount is applied.
+	-	If the total price is greater than or equal to $ 250 and less than $ 500, a 5% discount is applied.
+	-	If the total price is greater than or equal to $ 500 and less than $ 1000 a discount of 10% is applied.
+	-	If the total price is greater than or equal to $ 1000, a 15% discount is applied.
+
+To finish, print the final price with the format: **"Final price is `FINAL_PRICE`"**
 
 
+
+
+| Input                                               | Output               |
+| --------------------------------------------------- | -------------------- |
+| 130<br />27<br />34<br />51<br />223<br />48<br />0 | Final price is 461.7 |
+
+As always, to test your function pass it's name as an argument to `Tester.test4.test()`. E.g. `Tester.test4.test(myFunctionName)`

@@ -3,11 +3,11 @@ import sys
 from inspect import currentframe
 from io import StringIO
 
-VERSION: float = 0.1362
-ON_IOS: bool = 'ios' in sys.platform
-ON_WINDOWS: bool = 'win' in sys.platform and 'dar' not in sys.platform
+_VERSION: float = 0.137
+_ON_IOS: bool = 'ios' in sys.platform
+_ON_WINDOWS: bool = 'win' in sys.platform and 'dar' not in sys.platform
 
-if ON_IOS:
+if _ON_IOS:
     import console
 
 
@@ -67,11 +67,11 @@ class _Cmd:
             console.set_color()
 
 
-def current_line():
+def _current_line():
     return currentframe().f_back.f_lineno
 
 
-if ON_WINDOWS:
+if _ON_WINDOWS:
     try:
         from colorama import init as init_colorama
 
@@ -84,14 +84,14 @@ if ON_WINDOWS:
             import pip
 
 
-            def install(package):
+            def _install(package):
                 if hasattr(pip, 'main'):
                     pip.main(['install', package])
                 else:
                     pip._internal.main(['install', package])
 
 
-            install('colorama')
+            _install('colorama')
             try:
                 from colorama import init as init_colorama
 
@@ -99,15 +99,15 @@ if ON_WINDOWS:
 
                 _Cmd.PrintMsg.normal_success("'colorama' module installed successfully")
             except ModuleNotFoundError:
-                print(f">> Error: Something went wrong while updating Tester [Line {current_line()}]")
+                print(f">> Error: Something went wrong while updating Tester [Line {_current_line()}]")
         except:
-            print(f">> Error: Something went wrong while updating Tester [Line {current_line()}]")
+            print(f">> Error: Something went wrong while updating Tester [Line {_current_line()}]")
 
 try:
     import requests
 except ModuleNotFoundError:
 
-    if ON_IOS:
+    if _ON_IOS:
         _Cmd.PrintMsg.pythonista_warning("Tester needs 'requests' module to work.")
         print(">> Install 'requests' module with StaSh 'https://github.com/ywangd/stash'\n")
     else:
@@ -118,22 +118,22 @@ except ModuleNotFoundError:
             import pip
 
 
-            def install(package):
+            def _install(package):
                 if hasattr(pip, 'main'):
                     pip.main(['install', package])
                 else:
                     pip._internal.main(['install', package])
 
 
-            install('requests')
+            _install('requests')
             try:
                 import requests
 
                 _Cmd.PrintMsg.normal_success("'requests' module installed successfully")
             except ModuleNotFoundError:
-                _Cmd.PrintMsg.normal_error(f"Something went wrong while updating Tester [Line {current_line()}]")
+                _Cmd.PrintMsg.normal_error(f"Something went wrong while updating Tester [Line {_current_line()}]")
         except:
-            _Cmd.PrintMsg.normal_error(f"Something went wrong while updating Tester [Line {current_line()}]")
+            _Cmd.PrintMsg.normal_error(f"Something went wrong while updating Tester [Line {_current_line()}]")
 
 print("\n")
 
@@ -250,10 +250,46 @@ class _Test3:
             "E.g: input_1: 10, input_2: 3, prints: 'major'.")
 
 
-class _UpdateManager:
+class _Test4:
+    _testResult: [str] = [
+        "Final price is 461.7",
+        "Final price is 21",
+        "Final price is 20764.65"
+    ]
+    _testInputs: [str] = ["130\n27\n34\n51\n223\n48\n0", "7\n7\n7\n0", "100\n450\n320\n324\n23235\n0"]
+    _finalResult: int = 0
+
+    def test(self, function):
+        for i in range(len(self._testResult) - 1):
+            output = _TstHandler.test_function(function, self._testInputs[i])
+            if self._testResult[i].lower() in [x.lower() for x in output]:
+                self._finalResult += 0
+            else:
+                self._finalResult += 1
+
+        if self._finalResult == 0:
+            print("Test 4: Correct")
+        else:
+            print("Test 4: Incorrect. One or more cases returned a bad/unexpected result")
+
+    @staticmethod
+    def test_info():
+        print(
+            "Write a function that takes an undefined number of inputs containing a number that represents a price. "
+            "An input equal to \"0\" indicates the end of the input process. Sum all the prices and then make the "
+            "following:\n If the total price is less than $ 250, NO discount is applied. If the total price is "
+            "greater than or equal to $ 250 and less than $ 500, a 5% discount is applied. If the total price is "
+            "greater than or equal to $ 500 and less than $ 1000 a discount of 10% is applied. If the total price is "
+            "greater than or equal to $ 1000, a 15% discount is applied.\n To finish, print the final price with the "
+            "format: \"Final price is [FINAL_PRICE]\"")
+
+
+class _TesterManager:
 
     @staticmethod
     def get_repo_version():
+        """Gets Tester's GitHub repo version"""
+
         git_version: str = requests.get(
             'https://git.io/JLb6c').content.decode("utf-8")
         version: str = ""
@@ -264,10 +300,8 @@ class _UpdateManager:
         return float(version)
 
     @staticmethod
-    def update_ios():
-        """
-        Support for Pythonista 3
-        """
+    def get_tester_ios():
+        """Support for Pythonista 3"""
 
         contents = requests.get("https://git.io/JLb6G").content.decode(
             "utf-8")
@@ -278,14 +312,16 @@ class _UpdateManager:
             f.close()
 
     @staticmethod
-    def update():
+    def get_tester():
+        """Installs / Updates Tester.py"""
+
         try:
-            git_version: float = _UpdateManager.get_repo_version()
+            git_version: float = _TesterManager.get_repo_version()
         except:
-            if ON_IOS:
-                _Cmd.PrintMsg.pythonista_error(f"Failed to get GitHub version. Tester [Line {current_line()}]")
+            if _ON_IOS:
+                _Cmd.PrintMsg.pythonista_error(f"Failed to get GitHub version. Tester [Line {_current_line()}]")
             else:
-                _Cmd.PrintMsg.normal_error(f"Failed to get GitHub version. Tester [Line {current_line()}]")
+                _Cmd.PrintMsg.normal_error(f"Failed to get GitHub version. Tester [Line {_current_line()}]")
             return
 
         if os.path.exists("Tester.py"):
@@ -293,22 +329,22 @@ class _UpdateManager:
         else:
             is_update = False
 
-        if (git_version != VERSION and git_version > VERSION) or not is_update:
+        if (git_version != _VERSION and git_version > _VERSION) or not is_update:
             is_update: bool
 
             if is_update:
-                if ON_IOS:
+                if _ON_IOS:
                     _Cmd.PrintMsg.pythonista_warning("A new version of Tester is available.")
                 else:
                     _Cmd.PrintMsg.normal_warning("A new version of Tester is available.")
 
-                print(f">> Updating Tester [v.{VERSION}] -> [v.{git_version}]...")
+                print(f">> Updating Tester [v.{_VERSION}] -> [v.{git_version}]...")
             else:
-                print(f">> Installing Tester [v.{VERSION}]")
+                print(f">> Installing Tester [v.{_VERSION}]")
 
-            if ON_IOS:
+            if _ON_IOS:
                 try:
-                    _UpdateManager.update_ios()
+                    _TesterManager.get_tester_ios()
                     if is_update:
                         _Cmd.PrintMsg.pythonista_success("Tester updated successfully!")
                     else:
@@ -316,7 +352,7 @@ class _UpdateManager:
 
                 except:
                     _Cmd.PrintMsg.pythonista_error(
-                        f"Something went wrong while updating Tester [Line {current_line()}]")
+                        f"Something went wrong while updating Tester [Line {_current_line()}]")
                     return
             else:
                 try:
@@ -328,17 +364,18 @@ class _UpdateManager:
                     else:
                         _Cmd.PrintMsg.normal_success("Tester installed successfully!")
                 except:
-                    _Cmd.PrintMsg.normal_error(f"Something went wrong while updating Tester [Line {current_line()}]")
+                    _Cmd.PrintMsg.normal_error(f"Something went wrong while updating Tester [Line {_current_line()}]")
                     return
 
             print("\n")
 
 
-availableTests: [str] = ["test1", "test2", "test3"]
+availableTests: [str] = ["test1", "test2", "test3", "test4"]
 
-_UpdateManager.update()
+_TesterManager.get_tester()
 
 if __name__ == 'Tester':
     test1 = _Test1()
     test2 = _Test2()
     test3 = _Test3()
+    test4 = _Test4()
