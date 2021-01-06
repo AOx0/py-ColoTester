@@ -3,7 +3,7 @@ import sys
 from inspect import currentframe
 from io import StringIO
 
-_VERSION: float = 0.1371
+_VERSION: float = 0.1372
 _ON_IOS: bool = 'ios' in sys.platform
 _ON_WINDOWS: bool = 'win' in sys.platform and 'dar' not in sys.platform
 
@@ -289,7 +289,7 @@ class _TesterManager:
         """Gets Tester's GitHub repo version"""
 
         git_version: str = requests.get(
-            'https://git.io/JLb6c').content.decode("utf-8")
+            'https://raw.githubusercontent.com/AOx0/py-ColoTester/master/version.txt').content.decode("utf-8")
         version: str = ""
         for i in git_version:
             if i.isdigit() or i == ".":
@@ -301,7 +301,7 @@ class _TesterManager:
     def get_tester_ios():
         """Support for Pythonista 3"""
 
-        contents = requests.get("https://git.io/JLb6G").content.decode(
+        contents = requests.get("https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py").content.decode(
             "utf-8")
         with open("Tester.py", "w", encoding="utf-8") as f:
             f.seek(0)
@@ -355,7 +355,7 @@ class _TesterManager:
             else:
                 try:
                     os.system(
-                        "curl -sS https://git.io/JLb6G -o Tester.py")
+                        "curl -sS https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py -o Tester.py")
 
                     if is_update:
                         _Cmd.PrintMsg.normal_success("Tester updated successfully!")
