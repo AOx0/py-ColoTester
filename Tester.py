@@ -3,7 +3,7 @@ import sys
 from inspect import currentframe
 from io import StringIO
 
-_VERSION: float = 0.137
+_VERSION: float = 0.1371
 _ON_IOS: bool = 'ios' in sys.platform
 _ON_WINDOWS: bool = 'win' in sys.platform and 'dar' not in sys.platform
 
@@ -134,8 +134,6 @@ except ModuleNotFoundError:
                 _Cmd.PrintMsg.normal_error(f"Something went wrong while updating Tester [Line {_current_line()}]")
         except:
             _Cmd.PrintMsg.normal_error(f"Something went wrong while updating Tester [Line {_current_line()}]")
-
-print("\n")
 
 
 class _Capturing(list):
@@ -277,11 +275,11 @@ class _Test4:
         print(
             "Write a function that takes an undefined number of inputs containing a number that represents a price. "
             "An input equal to \"0\" indicates the end of the input process. Sum all the prices and then make the "
-            "following:\n If the total price is less than $ 250, NO discount is applied. If the total price is "
-            "greater than or equal to $ 250 and less than $ 500, a 5% discount is applied. If the total price is "
-            "greater than or equal to $ 500 and less than $ 1000 a discount of 10% is applied. If the total price is "
-            "greater than or equal to $ 1000, a 15% discount is applied.\n To finish, print the final price with the "
-            "format: \"Final price is [FINAL_PRICE]\"")
+            "following:\n\t- If the total price is less than $ 250, NO discount is applied. \n\t- If the total price "
+            "is greater than or equal to $ 250 and less than $ 500, a 5% discount is applied.\n\t- If the total price "
+            "is greater than or equal to $ 500 and less than $ 1000 a discount of 10% is applied.\n\t- If the total "
+            "price is greater than or equal to $ 1000, a 15% discount is applied.\n To finish, print the final price "
+            "with the format: \"Final price is [FINAL_PRICE]\"")
 
 
 class _TesterManager:
@@ -366,8 +364,6 @@ class _TesterManager:
                 except:
                     _Cmd.PrintMsg.normal_error(f"Something went wrong while updating Tester [Line {_current_line()}]")
                     return
-
-            print("\n")
 
 
 availableTests: [str] = ["test1", "test2", "test3", "test4"]
