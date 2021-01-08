@@ -3,7 +3,7 @@ import sys
 from inspect import currentframe
 from io import StringIO
 
-_VERSION: float = 0.138
+_VERSION: float = 0.1381
 _ON_IOS: bool = 'ios' in sys.platform
 _ON_WINDOWS: bool = 'win' in sys.platform and 'dar' not in sys.platform
 
@@ -284,7 +284,7 @@ class _Test4:
 
 class _Test5:
     _testResult: [str] = [ "F", "G", "F" ]
-    _testInputs: [str] = ["ARRAAR", "ARAAAAAAAAAR", "AR"]
+    _testInputs: [str] = ["PFFPPF", "PFPPPPPPPPPF", "PF"]
     _finalResult: int = 0
 
     def test(self, function):
@@ -305,7 +305,7 @@ class _Test5:
         print(
             "Write a function that has a unique input: a string that contains 'P' and 'F'. 'P' stands for "
             "'Passed' and 'F' stands for 'Failed'. De function must return 'G' (Graduated) if 80% of the "
-            "characters in the input are 'P's, if not it must return an 'F' (F).\nE.g. Input: 'ARRAAR' - Out"
+            "characters in the input are 'P's, if not it must return an 'F' (F). E.g. Input: 'PFFPPF' - Out"
             "put: 'F'"
         ) 
 
