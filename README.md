@@ -225,7 +225,7 @@ As always, to test your function pass it's name as an argument to `Tester.test4.
 | ------ | ------ |
 | ARRAAR | F      |
 
-As always, to test your function pass it's name as an argument to `Tester.test4.test()`. E.g. `Tester.test5.test(myFunctionName)`
+As always, to test your function pass it's name as an argument to `Tester.test5.test()`. E.g. `Tester.test5.test(myFunctionName)`
 
 
 
