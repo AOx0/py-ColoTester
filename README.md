@@ -205,3 +205,29 @@ To finish, print the final price with the format: **"Final price is `FINAL_PRICE
 | 130<br />27<br />34<br />51<br />223<br />48<br />0 | Final price is 461.7 |
 
 As always, to test your function pass it's name as an argument to `Tester.test4.test()`. E.g. `Tester.test4.test(myFunctionName)`
+
+
+
+<br />
+
+## `Tester.test5`
+
+ <br />
+
+#### `Tester.test5.test_info() `
+
+"Write a function that has a unique input: a string that contains 'P' and 'F'. 'P' stands for 'Passed' and 'F' stands for 'Failed'. De function must return 'G' (Graduated) if 80% of the characters in the input are 'P's, if not it must return an 'F' (F).\nE.g. Input: 'ARRAAR' - Output: 'F'"
+
+
+
+
+| Input  | Return |
+| ------ | ------ |
+| ARRAAR | F      |
+
+As always, to test your function pass it's name as an argument to `Tester.test4.test()`. E.g. `Tester.test5.test(myFunctionName)`
+
+
+
+
+

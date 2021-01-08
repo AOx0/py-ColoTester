@@ -3,7 +3,7 @@ import sys
 from inspect import currentframe
 from io import StringIO
 
-_VERSION: float = 0.1372
+_VERSION: float = 0.138
 _ON_IOS: bool = 'ios' in sys.platform
 _ON_WINDOWS: bool = 'win' in sys.platform and 'dar' not in sys.platform
 
@@ -282,6 +282,35 @@ class _Test4:
             "with the format: \"Final price is [FINAL_PRICE]\"")
 
 
+class _Test5:
+    _testResult: [str] = [ "F", "G", "F" ]
+    _testInputs: [str] = ["ARRAAR", "ARAAAAAAAAAR", "AR"]
+    _finalResult: int = 0
+
+    def test(self, function):
+        for i in range(len(self._testResult) - 1):
+            output = _TstHandler.test_function(function, self._testInputs[i])
+            if self._testResult[i].lower() in [x.lower() for x in output]:
+                self._finalResult += 0
+            else:
+                self._finalResult += 1
+
+        if self._finalResult == 0:
+            print("Test 5: Correct")
+        else:
+            print("Test 5: Incorrect. One or more cases returned a bad/unexpected result")
+
+    @staticmethod
+    def test_info():
+        print(
+            "Write a function that has a unique input: a string that contains 'P' and 'F'. 'P' stands for "
+            "'Passed' and 'F' stands for 'Failed'. De function must return 'G' (Graduated) if 80% of the "
+            "characters in the input are 'P's, if not it must return an 'F' (F).\nE.g. Input: 'ARRAAR' - Out"
+            "put: 'F'"
+        ) 
+
+
+
 class _TesterManager:
 
     @staticmethod
@@ -375,3 +404,4 @@ if __name__ == 'Tester':
     test2 = _Test2()
     test3 = _Test3()
     test4 = _Test4()
+    test5 = _Test5()
