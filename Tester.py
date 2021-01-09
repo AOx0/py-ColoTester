@@ -3,15 +3,18 @@ import sys
 from inspect import currentframe
 from io import StringIO
 
-_VERSION: float = 0.1381
+_VERSION: float = 0.14
 _ON_IOS: bool = 'ios' in sys.platform
 _ON_WINDOWS: bool = 'win' in sys.platform and 'dar' not in sys.platform
+_DEBUG: bool = False
+
+_USED_PIP: bool = False
 
 if _ON_IOS:
     import console
 
 
-class _Cmd:
+class CT:
     class Colors:
         HEADER = '\033[95m'
         OKBLUE = '\033[94m'
@@ -23,47 +26,69 @@ class _Cmd:
         BOLD = '\033[1m'
         UNDERLINE = '\033[4m'
 
+    @staticmethod
+    def p_warning(message: str, end="\n"):
+        if _ON_IOS:
+            CT.PrintMsg.pythonista_warning(f"{message}", end)
+        else:
+            CT.PrintMsg.normal_warning(f"{message}", end)
+
+    @staticmethod
+    def p_error(message: str, end="\n"):
+        if _ON_IOS:
+            CT.PrintMsg.pythonista_error(f"{message}", end)
+        else:
+            CT.PrintMsg.normal_error(f"{message}", end)
+
+    @staticmethod
+    def p_success(message: str, end="\n"):
+        if _ON_IOS:
+            CT.PrintMsg.pythonista_success(f"{message}", end)
+        else:
+            CT.PrintMsg.normal_success(f"{message}", end)
+
     class PrintMsg:
-        @staticmethod
-        def normal_warning(message):
-            print(f">> {_Cmd.Colors.WARNING}Warning:{_Cmd.Colors.ENDC} {message}")
 
         @staticmethod
-        def pythonista_warning(message):
+        def normal_warning(message, end):
+            print(f">> {CT.Colors.WARNING}Warning:{CT.Colors.ENDC} {message}", end=end)
+
+        @staticmethod
+        def pythonista_warning(message, end):
             console.set_color()
             print(">> ", end="")
             console.set_color(255, 255, 0)
             print("Warning: ", end="")
             console.set_color()
-            print(message)
+            print(message, end=end)
             console.set_color()
 
         @staticmethod
-        def normal_error(message):
-            print(f">> {_Cmd.Colors.FAIL}Error:{_Cmd.Colors.ENDC} {message}")
+        def normal_error(message, end):
+            print(f">> {CT.Colors.FAIL}Error:{CT.Colors.ENDC} {message}", end=end)
 
         @staticmethod
-        def pythonista_error(message):
+        def pythonista_error(message, end):
             console.set_color()
             print(">> ", end="")
             console.set_color(255, 0, 0)
             print("Error: ", end="")
             console.set_color()
-            print(message)
+            print(message, end=end)
             console.set_color()
 
         @staticmethod
-        def normal_success(message):
-            print(f">> {_Cmd.Colors.OKGREEN}Success:{_Cmd.Colors.ENDC} {message}")
+        def normal_success(message, end):
+            print(f">> {CT.Colors.OKGREEN}Success:{CT.Colors.ENDC} {message}", end=end)
 
         @staticmethod
-        def pythonista_success(message):
+        def pythonista_success(message, end):
             console.set_color()
             print(">> ", end="")
             console.set_color(0, 255, 0)
             print("Success: ", end="")
             console.set_color()
-            print(message)
+            print(message, end=end)
             console.set_color()
 
 
@@ -81,59 +106,39 @@ if _ON_WINDOWS:
         print(">> Installing 'colorama' module...\n")
 
         try:
-            import pip
+            from pip._internal import main as pip
 
+            pip(['install', '--user', 'colorama'])
 
-            def _install(package):
-                if hasattr(pip, 'main'):
-                    pip.main(['install', package])
-                else:
-                    pip._internal.main(['install', package])
-
-
-            _install('colorama')
             try:
                 from colorama import init as init_colorama
 
                 init_colorama()
 
-                _Cmd.PrintMsg.normal_success("'colorama' module installed successfully")
+                CT.p_success("'colorama' module installed successfully")
+                _USED_PIP = True
             except ModuleNotFoundError:
-                print(f">> Error: Something went wrong while updating Tester [Line {_current_line()}]")
+                print(f">> Error: Something went wrong while 'colorama' import Tester [Line {_current_line()}]")
         except:
-            print(f">> Error: Something went wrong while updating Tester [Line {_current_line()}]")
+            print(f">> Error: Something went wrong while 'colorama' import Tester [Line {_current_line()}]")
 
 try:
     import requests
 except ModuleNotFoundError:
+    CT.p_warning("Tester needs 'requests' module to work.")
+    print(">> Installing 'requests' module...\n")
 
-    if _ON_IOS:
-        _Cmd.PrintMsg.pythonista_warning("Tester needs 'requests' module to work.")
-        print(">> Install 'requests' module with StaSh 'https://github.com/ywangd/stash'\n")
-    else:
-        _Cmd.PrintMsg.normal_warning("Tester needs 'requests' module to work.")
-        print(">> Installing 'requests' module...\n")
+    from pip._internal import main as pip
 
-        try:
-            import pip
+    pip(['install', '--user', 'requests'])
 
+    try:
+        import requests
 
-            def _install(package):
-                if hasattr(pip, 'main'):
-                    pip.main(['install', package])
-                else:
-                    pip._internal.main(['install', package])
-
-
-            _install('requests')
-            try:
-                import requests
-
-                _Cmd.PrintMsg.normal_success("'requests' module installed successfully")
-            except ModuleNotFoundError:
-                _Cmd.PrintMsg.normal_error(f"Something went wrong while updating Tester [Line {_current_line()}]")
-        except:
-            _Cmd.PrintMsg.normal_error(f"Something went wrong while updating Tester [Line {_current_line()}]")
+        CT.p_success("'requests' module installed successfully")
+        _USED_PIP = True
+    except ModuleNotFoundError:
+        CT.p_error(f"Something went wrong while 'requests' import Tester [Line {_current_line()}]y")
 
 
 class _Capturing(list):
@@ -156,6 +161,15 @@ class _TstHandler:
             function()
         return output
 
+    @staticmethod
+    def print_result(fr: int, tn: int):
+        if fr == 0:
+            print(f"Test {tn}: Correct")
+            return 0
+        else:
+            print(f"Test {tn}: Incorrect. One or more cases returned a bad/unexpected result")
+            return 1
+
 
 class _Test1:
     _testResult: [str] = [
@@ -165,6 +179,7 @@ class _Test1:
     ]
     _testInputs: [str] = ["Daniel\n27\nSpain", "Fernando\n19\nMexico", "Sprouth\n16\nUSA"]
     _finalResult: int = 0
+    _testNumber: int = 1
 
     def test(self, function):
         for i in range(len(self._testResult) - 1):
@@ -174,10 +189,9 @@ class _Test1:
             else:
                 self._finalResult += 1
 
-        if self._finalResult == 0:
-            print("Test 1: Correct")
-        else:
-            print("Test 1: Incorrect. One or more cases returned a bad/unexpected result")
+        success = _TstHandler.print_result(self._finalResult, self._testNumber)
+        if _DEBUG:
+            return success
 
     @staticmethod
     def test_info():
@@ -196,6 +210,7 @@ class _Test2:
     ]
     _testInputs: [str] = [[4, 5], [8, 8], [50, 99]]
     _finalResult: int = 0
+    _testNumber: int = 2
 
     def test(self, function):
         for i in range(len(self._testResult) - 1):
@@ -205,10 +220,9 @@ class _Test2:
             else:
                 self._finalResult += 1
 
-        if self._finalResult == 0:
-            print("Test 2: Correct")
-        else:
-            print("Test 2: Incorrect. One or more cases returned a bad/unexpected result")
+        success = _TstHandler.print_result(self._finalResult, self._testNumber)
+        if _DEBUG:
+            return success
 
     @staticmethod
     def test_info():
@@ -226,6 +240,7 @@ class _Test3:
     ]
     _testInputs: [str] = ["10\n3", "7\n7", "1\n5"]
     _finalResult: int = 0
+    _testNumber: int = 3
 
     def test(self, function):
         for i in range(len(self._testResult) - 1):
@@ -235,10 +250,9 @@ class _Test3:
             else:
                 self._finalResult += 1
 
-        if self._finalResult == 0:
-            print("Test 3: Correct")
-        else:
-            print("Test 3: Incorrect. One or more cases returned a bad/unexpected result")
+        success = _TstHandler.print_result(self._finalResult, self._testNumber)
+        if _DEBUG:
+            return success
 
     @staticmethod
     def test_info():
@@ -256,6 +270,7 @@ class _Test4:
     ]
     _testInputs: [str] = ["130\n27\n34\n51\n223\n48\n0", "7\n7\n7\n0", "100\n450\n320\n324\n23235\n0"]
     _finalResult: int = 0
+    _testNumber: int = 4
 
     def test(self, function):
         for i in range(len(self._testResult) - 1):
@@ -265,10 +280,9 @@ class _Test4:
             else:
                 self._finalResult += 1
 
-        if self._finalResult == 0:
-            print("Test 4: Correct")
-        else:
-            print("Test 4: Incorrect. One or more cases returned a bad/unexpected result")
+        success = _TstHandler.print_result(self._finalResult, self._testNumber)
+        if _DEBUG:
+            return success
 
     @staticmethod
     def test_info():
@@ -283,9 +297,10 @@ class _Test4:
 
 
 class _Test5:
-    _testResult: [str] = [ "F", "G", "F" ]
+    _testResult: [str] = ["F", "G", "F"]
     _testInputs: [str] = ["PFFPPF", "PFPPPPPPPPPF", "PF"]
     _finalResult: int = 0
+    _testNumber: int = 5
 
     def test(self, function):
         for i in range(len(self._testResult) - 1):
@@ -295,10 +310,9 @@ class _Test5:
             else:
                 self._finalResult += 1
 
-        if self._finalResult == 0:
-            print("Test 5: Correct")
-        else:
-            print("Test 5: Incorrect. One or more cases returned a bad/unexpected result")
+        success = _TstHandler.print_result(self._finalResult, self._testNumber)
+        if _DEBUG:
+            return success
 
     @staticmethod
     def test_info():
@@ -307,8 +321,7 @@ class _Test5:
             "'Passed' and 'F' stands for 'Failed'. De function must return 'G' (Graduated) if 80% of the "
             "characters in the input are 'P's, if not it must return an 'F' (F). E.g. Input: 'PFFPPF' - Out"
             "put: 'F'"
-        ) 
-
+        )
 
 
 class _TesterManager:
@@ -330,26 +343,29 @@ class _TesterManager:
     def get_tester_ios():
         """Support for Pythonista 3"""
 
+        if _DEBUG:
+            file_name = "Tester1.py"
+        else:
+            file_name = "Tester.py"
+
         contents = requests.get("https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py").content.decode(
             "utf-8")
-        with open("Tester.py", "w", encoding="utf-8") as f:
+
+        with open(file_name, "w", encoding="utf-8") as f:
             f.seek(0)
             f.write(contents)
             f.truncate()
             f.close()
 
     @staticmethod
-    def get_tester():
+    def get_tester() -> int:
         """Installs / Updates Tester.py"""
 
         try:
             git_version: float = _TesterManager.get_repo_version()
         except:
-            if _ON_IOS:
-                _Cmd.PrintMsg.pythonista_error(f"Failed to get GitHub version. Tester [Line {_current_line()}]")
-            else:
-                _Cmd.PrintMsg.normal_error(f"Failed to get GitHub version. Tester [Line {_current_line()}]")
-            return
+            CT.p_error(f"Failed to get GitHub version. Tester [Line {_current_line()}]")
+            return 1
 
         if os.path.exists("Tester.py"):
             is_update = True
@@ -360,10 +376,7 @@ class _TesterManager:
             is_update: bool
 
             if is_update:
-                if _ON_IOS:
-                    _Cmd.PrintMsg.pythonista_warning("A new version of Tester is available.")
-                else:
-                    _Cmd.PrintMsg.normal_warning("A new version of Tester is available.")
+                CT.p_warning("A new version of Tester is available.")
 
                 print(f">> Updating Tester [v.{_VERSION}] -> [v.{git_version}]...")
             else:
@@ -372,36 +385,128 @@ class _TesterManager:
             if _ON_IOS:
                 try:
                     _TesterManager.get_tester_ios()
-                    if is_update:
-                        _Cmd.PrintMsg.pythonista_success("Tester updated successfully!")
-                    else:
-                        _Cmd.PrintMsg.pythonista_success("Tester installed successfully!")
-
+                    CT.p_success("Tester [v.{git_version}] installed successfully!")
                 except:
-                    _Cmd.PrintMsg.pythonista_error(
-                        f"Something went wrong while updating Tester [Line {_current_line()}]")
-                    return
+                    CT.p_error(f"Something went wrong while updating Tester [Line {_current_line()}]")
+                    return 3  # IOS Update Failed
             else:
                 try:
-                    os.system(
-                        "curl -sS https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py -o Tester.py")
+                    if _DEBUG:
+                        os.system(
+                            "curl -sS https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py -o "
+                            "Tester1.py")
+                    else:
+                        os.system(
+                            "curl -sS https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py -o "
+                            "Tester.py")
 
                     if is_update:
-                        _Cmd.PrintMsg.normal_success("Tester updated successfully!")
+                        CT.p_success("Tester update to [v.{git_version}] successfully!")
                     else:
-                        _Cmd.PrintMsg.normal_success("Tester installed successfully!")
+                        CT.p_success("Tester [v.{git_version}] installed successfully!")
                 except:
-                    _Cmd.PrintMsg.normal_error(f"Something went wrong while updating Tester [Line {_current_line()}]")
-                    return
+                    CT.p_error(f"Something went wrong while updating Tester [Line {_current_line()}]")
+                    return 2  # Curl Failed
+
+        return 0  # Success
 
 
 availableTests: [str] = ["test1", "test2", "test3", "test4"]
 
-_TesterManager.get_tester()
 
-if __name__ == 'Tester':
-    test1 = _Test1()
-    test2 = _Test2()
-    test3 = _Test3()
-    test4 = _Test4()
-    test5 = _Test5()
+class _TesterTesting:
+
+    def __init__(self):
+        failed = 0
+        failed += _TesterTesting.run_update_test()
+        failed += _TesterTesting.run_tests_test()
+
+        if failed == 0:
+            CT.p_success("All tests were executed successfully")
+        else:
+            CT.p_error(f"Failed tests with {failed} errors")
+
+    @staticmethod
+    def run_tests_test() -> int:
+        import tests as t
+
+        global test1, test2, test3, test4, test5
+
+        failed = 0
+        functions = [t.test1, t.test2, t.test3, t.test4, t.test5]
+        tests = [test1, test2, test3, test4, test5]
+        for testNum in range(len(functions)):
+            CT.p_warning(f"Testing 'Test {testNum + 1}' ", end="")
+            print(f"with function {functions[testNum]}", end=" | ")
+            if tests[testNum].test(functions[testNum]) == 0:
+                CT.p_success(f"Test {testNum + 1} successful")
+            else:
+                CT.p_error(f"Test {testNum + 1} failed")
+                failed += 1
+
+        if failed == 0:
+            CT.p_success("All Tester.testX.test() tests successful")
+            print("")
+
+        return failed
+
+    @staticmethod
+    def run_update_test() -> int:
+        import platform
+
+        global _VERSION
+        _VERSION -= 0.0001
+
+        update_result = _TesterManager.get_tester()
+        if update_result == 1:
+            CT.p_warning("Failed to get GitVersion (requests may be failing)")
+            return 1
+        elif update_result == 2:
+            CT.p_warning("Failed to use 'curl [LINK] -o Tester.py'. Or CT.PrintMsg Fails")
+            return 1
+        elif update_result == 3:
+            CT.p_warning("Failed to update iOS pythonista 3 version. (requests may be failing)")
+            return 1
+        else:
+            print("")
+            CT.p_success(f"Update test in {sys.platform} - {platform.machine()} - Python v{platform.python_version()} "
+                         "successful")
+            print("")
+            return 0
+
+
+test1 = ""
+test2 = ""
+test3 = ""
+test4 = ""
+test5 = ""
+
+
+def main():
+    global _DEBUG
+    # Try  to update Tester.py
+    _TesterManager.get_tester()
+
+    if len(sys.argv) == 2:
+        _DEBUG = sys.argv[1] == "1" or sys.argv[1].lower() == "true"
+
+    # Create test instances
+    if __name__ == 'Tester' or _DEBUG:
+        global test1, test2, test3, test4, test5
+
+        test1 = _Test1()
+        test2 = _Test2()
+        test3 = _Test3()
+        test4 = _Test4()
+        test5 = _Test5()
+
+    # Run tests
+    if _DEBUG:
+        CT.p_warning("Debug mode running")
+        _TesterTesting()
+
+
+if not _USED_PIP:
+    main()
+else:
+    os.execv(sys.executable, ['python'] + sys.argv)
