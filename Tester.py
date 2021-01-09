@@ -3,7 +3,7 @@ import sys
 from inspect import currentframe
 from io import StringIO
 
-_VERSION: float = 0.1402
+_VERSION: float = 0.1403
 _ON_IOS: bool = 'ios' in sys.platform
 _ON_WINDOWS: bool = 'win' in sys.platform and 'dar' not in sys.platform
 _DEBUG: bool = False
@@ -408,8 +408,9 @@ class _TesterManager:
                     CT.p_error(f"Something went wrong while updating Tester [Line {_current_line()}]")
                     return 2  # Curl Failed
             
-            CT.p_warning("Re-running Tester.py...\n")
-            os.execv(sys.executable, ['python'] + sys.argv)
+            if not _ON_IOS:
+                CT.p_warning("Re-running Tester.py...\n")
+                os.execv(sys.executable, ['python'] + sys.argv)
         return 0  # Success
 
 
@@ -508,4 +509,6 @@ def main():
 if not _USED_PIP:
     main()
 else:
-    os.execv(sys.executable, ['python'] + sys.argv)
+    if not _ON_IOS:
+        CT.p_warning("Re-running Tester.py...\n")
+        os.execv(sys.executable, ['python'] + sys.argv)
