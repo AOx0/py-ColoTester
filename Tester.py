@@ -3,7 +3,7 @@ import sys
 from inspect import currentframe
 from io import StringIO
 
-_VERSION: float = 0.1404
+_VERSION: float = 0.1405
 _ON_IOS: bool = 'ios' in sys.platform
 _ON_WINDOWS: bool = 'win' in sys.platform and 'dar' not in sys.platform
 _DEBUG: bool = False
@@ -13,6 +13,8 @@ _USED_PIP: bool = False
 if _ON_IOS:
     import console
 
+if '2' in sys.argv:
+    print("")
 
 class CT:
     class Colors:
@@ -409,8 +411,8 @@ class _TesterManager:
                     return 2  # Curl Failed
             
             if not _ON_IOS and not _DEBUG:
-                CT.p_warning("Re-running Tester.py...\n")
-                os.execv(sys.executable, ['python'] + sys.argv)
+                CT.p_warning("Re-running Tester.py...")
+                os.execv(sys.executable, ['python'] + sys.argv + ['2'])
         return 0  # Success
 
 
