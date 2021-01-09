@@ -3,7 +3,7 @@ import sys
 from inspect import currentframe
 from io import StringIO
 
-_VERSION: float = 0.14
+_VERSION: float = 0.1401
 _ON_IOS: bool = 'ios' in sys.platform
 _ON_WINDOWS: bool = 'win' in sys.platform and 'dar' not in sys.platform
 _DEBUG: bool = False
@@ -385,7 +385,7 @@ class _TesterManager:
             if _ON_IOS:
                 try:
                     _TesterManager.get_tester_ios()
-                    CT.p_success("Tester [v.{git_version}] installed successfully!")
+                    CT.p_success(f"Tester [v.{git_version}] installed successfully!")
                 except:
                     CT.p_error(f"Something went wrong while updating Tester [Line {_current_line()}]")
                     return 3  # IOS Update Failed
@@ -401,9 +401,9 @@ class _TesterManager:
                             "Tester.py")
 
                     if is_update:
-                        CT.p_success("Tester update to [v.{git_version}] successfully!")
+                        CT.p_success(f"Tester update to [v.{git_version}] successfully!")
                     else:
-                        CT.p_success("Tester [v.{git_version}] installed successfully!")
+                        CT.p_success(f"Tester [v.{git_version}] installed successfully!")
                 except:
                     CT.p_error(f"Something went wrong while updating Tester [Line {_current_line()}]")
                     return 2  # Curl Failed
