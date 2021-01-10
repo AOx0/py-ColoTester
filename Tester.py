@@ -3,7 +3,7 @@ import sys
 from inspect import currentframe
 from io import StringIO
 
-_VERSION: float = 0.1405
+_VERSION: float = 0.1406
 _ON_IOS: bool = 'ios' in sys.platform
 _ON_WINDOWS: bool = 'win' in sys.platform and 'dar' not in sys.platform
 _DEBUG: bool = False
@@ -329,6 +329,19 @@ class _Test5:
 class _TesterManager:
 
     @staticmethod
+    def versionStr_to_Int(version: str):
+        version = version.replace(".", "")
+
+        majorVersion = int(version[0])
+        minorVersion = int(version[1])
+        microVersion = int(version[2:])
+
+        print((majorVersion * 100) + (minorVersion * 3) + (microVersion))
+        return (majorVersion * 100) + (minorVersion * 3) + (microVersion)
+
+
+
+    @staticmethod
     def get_repo_version():
         """Gets Tester's GitHub repo version"""
 
@@ -374,7 +387,7 @@ class _TesterManager:
         else:
             is_update = False
 
-        if (git_version != _VERSION and git_version > _VERSION) or not is_update:
+        if (_TesterManager.versionStr_to_Int(version=str(git_version)) > _TesterManager.versionStr_to_Int(version=str(_VERSION))) or not is_update:
             is_update: bool
 
             if is_update:
