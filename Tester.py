@@ -197,16 +197,6 @@ class Tester:
             if '__debug' in sys.argv:
                 return True
 
-        def fixCLIAppearance(self):
-
-            def fixRestartedCLIPrompt():
-                """Fixes CLI prompt appearance when the script is restarted after an update"""
-                print('\n')
-
-            script_was_restarted = self.detectSelfRestartedFlag()
-            if script_was_restarted:
-                fixRestartedCLIPrompt()
-
         def p_warning(self, message: str, end="\n"):
             if self.device == "ios":
                 self.print_.pythonista_warning(message=f"{message}", end=end)
@@ -409,30 +399,32 @@ class Tester:
         cli.p_warning("Re-running Tester...")
 
     def __init__(self):
-
-        if self.__detectRestartFlag():
-            print("Re-running Tester...")
-
-        self.__version = "0.2.000"
+        self.__version = "0.2.001"
 
         # Search for run flags
         self.__device = self.__detectDevice()
         self.__debug = self.__detectDebugFlag()
+        isRestarted = self.__detectRestartFlag()
+
+        if isRestarted:
+            # Fix cmd Appearence on Windows.
+            print("Re-running Tester...")
+
+        del isRestarted
 
         # Init CLI
         self.__cli = self.__CLIManager(device=self.__device)
 
         # Import device-specific modules to color text
         if self.__device == "ios":
+            # Import console on ios Pythonista 3
             global console
             import console
 
-            # Just to avoid lazy PyCharm warning
-            _ = console
+            _ = console     # Just to avoid lazy PyCharm warning
             del _
-
-        # Import colorama
         else:
+            # Import colorama on Windows/MacOS/etc
             try:
                 from colorama import init as init_
                 init_()
@@ -442,7 +434,7 @@ class Tester:
                 self.__pipInstall('colorama', cli=self.__cli)
                 self.__init__()
 
-        # Import requests
+        # Import requests.
         try:
             global requests
             import requests
@@ -454,9 +446,6 @@ class Tester:
 
         # Init Version Manager
         self.__versionManager = self.__VersionManager(cli=self.__cli, currentVersion=self.__version)
-
-        # Fix appearance of restarted script
-        self.__cli.fixCLIAppearance()
 
         # Try to update Tester
         self.__versionManager.getTester(
