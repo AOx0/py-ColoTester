@@ -399,15 +399,15 @@ class Tester:
         cli.p_warning("Re-running Tester...")
 
     def __init__(self):
-        self.__version = "0.2.001"
+        self.__version = "0.2.003"
 
-        # Search for run flags
+        # Search for run command arguments
         self.__device = self.__detectDevice()
         self.__debug = self.__detectDebugFlag()
         isRestarted = self.__detectRestartFlag()
 
         if isRestarted:
-            # Fix cmd Appearence on Windows.
+            # Fix cmd Appearance on Windows.
             print("Re-running Tester...")
 
         del isRestarted
@@ -458,6 +458,9 @@ class Tester:
             self.test3 = self.__Test3(debug=self.__debug)
             self.test4 = self.__Test4(debug=self.__debug)
             self.test5 = self.__Test5(debug=self.__debug)
+        else:
+            print(f"Welcome to Tester.py [v.{self.__version}] by AOx0.\n"
+                  "GitHub Repo: https://github.com/AOx0/py-ColoTester")
 
 
 Tester = Tester()
