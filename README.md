@@ -62,7 +62,7 @@ The code will create a file named `Tester.py` that you can then import to files 
 1.  Import `Tester` in any python file **inside the folder where you used the installation command** and access to the Tester's `test` you want.
 
 ```python
-import Tester
+from Tester import Tester
 
 Tester.test1.test_info() 
 # Prints:
@@ -76,7 +76,7 @@ Tester.test1.test_info()
 2.  Read the test explanation with `test_info()` and code a function that makes what the explanation is asking. Example:
 
 ```python
-import Tester
+from Tester import Tester
 
 def testAttempt():
     name = input("Write a name:\n")
@@ -92,7 +92,7 @@ def testAttempt():
 3.  Once you have finished programming a function that fulfills `test_info()` requirements, you need to *"submit"* it for the `Tester` to evaluate it. You can do it like in the following example:
 
 ```python
-import Tester
+from Tester import Tester
 
 def testAttempt():
     name = input("Write a name:\n")
