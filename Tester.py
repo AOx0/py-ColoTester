@@ -10,16 +10,16 @@ class Tester:
     class __Test:
 
         def __init__(self, debug: bool):
-            self.__debug = debug
+            self._debug = debug
 
-        def __test_function(self, function, inputs) -> [str]:
-            with self.__Capturing() as output:
+        def _test_function(self, function, inputs) -> [str]:
+            with self._Capturing() as output:
                 sys.stdin = StringIO(inputs)
                 function()
             return output
 
         @staticmethod
-        def __print_result(fr: int, tn: int):
+        def _print_result(fr: int, tn: int):
             if fr == 0:
                 print(f"Test {tn}: Correct")
                 return 0
@@ -27,7 +27,7 @@ class Tester:
                 print(f"Test {tn}: Incorrect. One or more cases returned a bad/unexpected result")
                 return 1
 
-        class __Capturing(list):
+        class _Capturing(list):
             def __enter__(self):
                 self._stdout = sys.stdout
                 sys.stdout = self._stringio = StringIO()
@@ -50,14 +50,14 @@ class Tester:
 
         def test(self, function):
             for i in range(len(self._testResult) - 1):
-                output = self.__test_function(function, self._testInputs[i])
+                output = self._test_function(function, self._testInputs[i])
                 if self._testResult[i].lower() in [x.lower() for x in output]:
                     self._finalResult += 0
                 else:
                     self._finalResult += 1
 
-            success = self.__print_result(self._finalResult, self._testNumber)
-            if self.__debug:
+            success = self._print_result(self._finalResult, self._testNumber)
+            if self._debug:
                 return success
 
         @staticmethod
@@ -86,8 +86,8 @@ class Tester:
                 else:
                     self._finalResult += 1
 
-            success = self.__print_result(self._finalResult, self._testNumber)
-            if self.__debug:
+            success = self._print_result(self._finalResult, self._testNumber)
+            if self._debug:
                 return success
 
         @staticmethod
@@ -109,14 +109,14 @@ class Tester:
 
         def test(self, function):
             for i in range(len(self._testResult) - 1):
-                output = self.__test_function(function, self._testInputs[i])
+                output = self._test_function(function, self._testInputs[i])
                 if self._testResult[i].lower() in [x.lower() for x in output]:
                     self._finalResult += 0
                 else:
                     self._finalResult += 1
 
-            success = self.__print_result(self._finalResult, self._testNumber)
-            if self.__debug:
+            success = self._print_result(self._finalResult, self._testNumber)
+            if self._debug:
                 return success
 
         @staticmethod
@@ -138,14 +138,14 @@ class Tester:
 
         def test(self, function):
             for i in range(len(self._testResult) - 1):
-                output = self.__test_function(function, self._testInputs[i])
+                output = self._test_function(function, self._testInputs[i])
                 if self._testResult[i].lower() in [x.lower() for x in output]:
                     self._finalResult += 0
                 else:
                     self._finalResult += 1
 
-            success = self.__print_result(self._finalResult, self._testNumber)
-            if self.__debug:
+            success = self._print_result(self._finalResult, self._testNumber)
+            if self._debug:
                 return success
 
         @staticmethod
@@ -167,14 +167,14 @@ class Tester:
 
         def test(self, function):
             for i in range(len(self._testResult) - 1):
-                output = self.__test_function(function, self._testInputs[i])
+                output = self._test_function(function, self._testInputs[i])
                 if self._testResult[i].lower() in [x.lower() for x in output]:
                     self._finalResult += 0
                 else:
                     self._finalResult += 1
 
-            success = self.__print_result(self._finalResult, self._testNumber)
-            if self.__debug:
+            success = self._print_result(self._finalResult, self._testNumber)
+            if self._debug:
                 return success
 
         @staticmethod
@@ -194,7 +194,7 @@ class Tester:
 
         @staticmethod
         def detectSelfRestartedFlag() -> bool:
-            if '__debug' in sys.argv:
+            if '_debug' in sys.argv:
                 return True
 
         def p_warning(self, message: str, end="\n"):
@@ -371,7 +371,7 @@ class Tester:
 
     @staticmethod
     def __detectDebugFlag() -> bool:
-        if '__debug' in sys.argv:
+        if '_debug' in sys.argv:
             return True
         else:
             return False
@@ -399,7 +399,7 @@ class Tester:
         cli.p_warning("Re-running Tester...")
 
     def __init__(self):
-        self.__version = "0.2.003"
+        self.__version = "0.2.004"
 
         # Search for run command arguments
         self.__device = self.__detectDevice()
@@ -459,8 +459,45 @@ class Tester:
             self.test4 = self.__Test4(debug=self.__debug)
             self.test5 = self.__Test5(debug=self.__debug)
         else:
-            print(f"Welcome to Tester.py [v.{self.__version}] by AOx0.\n"
+            print(f"Welcome to Tester.py [v{self.__version}] by AOx0.\n"
                   "GitHub Repo: https://github.com/AOx0/py-ColoTester")
 
 
 Tester = Tester()
+
+
+class Test:
+
+    @staticmethod
+    def One(func):
+        def wrapper(*_, **__):
+            Tester.test1.test(func)
+        return wrapper
+
+    @staticmethod
+    def Two(func):
+        def wrapper(*_, **__):
+            Tester.test2.test(func)
+        return wrapper
+
+    @staticmethod
+    def Three(func):
+        def wrapper(*_, **__):
+            Tester.test3.test(func)
+        return wrapper
+
+    @staticmethod
+    def Four(func):
+        def wrapper(*_, **__):
+            Tester.test4.test(func)
+        return wrapper
+
+    @staticmethod
+    def Five(func):
+        def wrapper(*_, **__):
+            Tester.test5.test(func)
+        return wrapper
+
+
+if __name__ == "Tester":
+    Test = Test()
