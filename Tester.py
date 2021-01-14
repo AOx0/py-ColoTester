@@ -297,7 +297,7 @@ class Tester:
                         tempValue += i
                 versionArray.append(int(tempValue))
 
-                return (versionArray[0] * 100) + (versionArray[1] * 3) + (versionArray[2])
+                return (versionArray[0] * 1000000000) + (versionArray[1] * 1) + (versionArray[2] * 0.000000001)
 
             def fixVersion(v):
                 if v.count(".") == 1:
@@ -399,7 +399,7 @@ class Tester:
         cli.p_warning("Re-running Tester...")
 
     def __init__(self):
-        self.__version = "0.2.004"
+        self.__version = "0.2.005"
 
         # Search for run command arguments
         self.__device = self.__detectDevice()

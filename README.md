@@ -59,6 +59,10 @@ The code will create a file named `Tester.py` that you can then import to files 
 
 ## How to use
 
+
+
+### Importing Tester
+
 1.  Import `Tester` in any python file **inside the folder where you used the installation command** and access to the Tester's `test` you want.
 
 ```python
@@ -109,7 +113,25 @@ Specifically, to test your functions you need to follow the next formula: `Teste
 
 
 
+### Using @Test.XXXX decorator
 
+Just add the decorator like `@Test.One`,  `@Test.Two`, `@Test.Three`, etc. to the function you want. The syntax is `@Test.[NUMBER]`
+
+```python
+from Tester import Test
+
+@Test.One
+def testAttempt():
+    name = input("Write a name:\n")
+    age = input("Write an age:\n")
+    country = input("Write a country:\n")
+
+    print(f"Hi, my name is {name} from {country}. I'm {age} years old.")
+ 
+testAttempt() # Prints: 'Test 1: Correct'
+```
+
+The decorator automatically tests the function you add the decorator to. 
 
 ## Tests
 
