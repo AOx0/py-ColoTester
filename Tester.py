@@ -323,12 +323,13 @@ class Tester:
             return requests.get("https://raw.githubusercontent.com"
                                 "/AOx0/py-ColoTester/SiteImp/Tester.py").content.decode("utf-8")
 
-        def __ios_update_install(self):
+        @staticmethod
+        def __ios_update_install():
             contents = requests.get(
                 "https://raw.githubusercontent.com/AOx0/py-ColoTester/SiteImp/Tester.py").content.decode(
                 "utf-8")
 
-            with open(f"{os.path.expanduser('~/Documents/site-packages-3/Tools')}/"
+            with open(f"{os.path.expanduser('~/Documents/site-packages-3')}/"
                       "Tester.py", "w+", encoding="utf-8") as f:
                 f.seek(0)
                 f.write(contents)
@@ -407,7 +408,7 @@ class Tester:
         cli.p_warning("Re-running Tester...")
 
     def __init__(self):
-        self.__version = "0.2.009"
+        self.__version = "0.2.010"
 
         # Search for run command arguments
         self.__device = self.__detectDevice()
