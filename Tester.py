@@ -328,7 +328,7 @@ class Tester:
                 "https://raw.githubusercontent.com/AOx0/py-ColoTester/SiteImp/Tester.py").content.decode(
                 "utf-8")
 
-            with open(f"{self.installationPath}/Tester.py", "w", encoding="utf-8") as f:
+            with open(f"{self.installationPath}/Tester.py", "w+", encoding="utf-8") as f:
                 f.seek(0)
                 f.write(contents)
                 f.truncate()
@@ -406,7 +406,7 @@ class Tester:
         cli.p_warning("Re-running Tester...")
 
     def __init__(self):
-        self.__version = "0.2.007"
+        self.__version = "0.2.008"
 
         # Search for run command arguments
         self.__device = self.__detectDevice()
