@@ -320,8 +320,8 @@ class Tester:
 
         @staticmethod
         def __get_testerScript_usingRequests():
-            return requests.get("https://raw.githubusercontent.com/AOx0/py-ColoTester/SiteImp/Tester.py").content.decode(
-                "utf-8")
+            return requests.get("https://raw.githubusercontent.com"
+                                "/AOx0/py-ColoTester/SiteImp/Tester.py").content.decode("utf-8")
 
         def __ios_update_install(self):
             contents = requests.get(
@@ -340,9 +340,9 @@ class Tester:
                 f"curl -sS https://raw.githubusercontent.com/AOx0/py-ColoTester/SiteImp/Tester.py -o "
                 f"{self.installationPath}{dirCharacter}Tester.py")
 
-        @staticmethod
-        def __testerFile_exists() -> bool:
-            if os.path.exists("Tester.py"):
+        def __testerFile_exists(self) -> bool:
+            dirCharacter = "\\" if self.device == "windows" else "/"
+            if os.path.exists(f"{self.installationPath}{dirCharacter}Tester.py"):
                 exists = True
             else:
                 exists = False
@@ -406,7 +406,7 @@ class Tester:
         cli.p_warning("Re-running Tester...")
 
     def __init__(self):
-        self.__version = "0.2.006"
+        self.__version = "0.2.007"
 
         # Search for run command arguments
         self.__device = self.__detectDevice()
