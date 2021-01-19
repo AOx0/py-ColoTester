@@ -25,7 +25,7 @@ If you have installed the `requests` module you can use the code provided for th
 To install open your shell/cmd/terminal/etc and **go to the path where your learning folder is** (with all your *.py files) **and write the command**:
 
 ```shell
-curl -sS https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py -o Tester.py
+curl -sS https://raw.githubusercontent.com/AOx0/py-ColoTester/SiteImp/Tester.py -o Tester.py
 ```
 
 The command will create a file named `Tester.py` that you can then import to files in the same directory.
@@ -41,7 +41,7 @@ The command will create a file named `Tester.py` that you can then import to fil
 To install the Tester make a new file or go to the Console view and paste-run the code:
 
 ```python
-import requests as r;exec(r.get("https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py").content)
+import requests as r;exec(r.get("https://raw.githubusercontent.com/AOx0/py-ColoTester/SiteImp/Tester.py").content)
 ```
 
 The code will create a file named `Tester.py` that you can then import to files in the same directory. 

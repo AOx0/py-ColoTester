@@ -265,18 +265,25 @@ class Tester:
 
     class __VersionManager:
 
-        def __init__(self, cli, currentVersion):
+        def __init__(self, cli, currentVersion, device):
             self.__rawVersionGit = self.__get_versionGithub_usingRequests()
             self.__rawVersionLocal = currentVersion
 
             self.__intVersionGit = self.__version_to_int(version=self.__rawVersionGit)
             self.__intVersionLocal = self.__version_to_int(version=self.__rawVersionLocal)
             self.__cli = cli
+            self.installationPath = self.__get_installation_path()
+            self.device = device
+
+        @staticmethod
+        def __get_installation_path() -> str:
+            import site
+            return site.USER_SITE
 
         @staticmethod
         def __get_versionGithub_usingRequests():
             version: str = requests.get(
-                'https://raw.githubusercontent.com/AOx0/py-ColoTester/master/version.txt').content.decode("utf-8")
+                'https://raw.githubusercontent.com/AOx0/py-ColoTester/SiteImp/version.txt').content.decode("utf-8")
 
             finalVersion = ""
             for i in version:
@@ -313,25 +320,25 @@ class Tester:
 
         @staticmethod
         def __get_testerScript_usingRequests():
-            return requests.get("https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py").content.decode(
+            return requests.get("https://raw.githubusercontent.com/AOx0/py-ColoTester/SiteImp/Tester.py").content.decode(
                 "utf-8")
 
-        @staticmethod
-        def __ios_update_install():
+        def __ios_update_install(self):
             contents = requests.get(
-                "https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py").content.decode(
+                "https://raw.githubusercontent.com/AOx0/py-ColoTester/SiteImp/Tester.py").content.decode(
                 "utf-8")
 
-            with open("Tester.py", "w", encoding="utf-8") as f:
+            with open(f"{self.installationPath}/Tester.py", "w", encoding="utf-8") as f:
                 f.seek(0)
                 f.write(contents)
                 f.truncate()
                 f.close()
 
-        @staticmethod
-        def __pc_update_install():
+        def __pc_update_install(self):
+            dirCharacter = "\\" if self.device == "windows" else "/"
             os.system(
-                "curl -sS https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py -o Tester.py")
+                f"curl -sS https://raw.githubusercontent.com/AOx0/py-ColoTester/SiteImp/Tester.py -o "
+                f"{self.installationPath}{dirCharacter}Tester.py")
 
         @staticmethod
         def __testerFile_exists() -> bool:
@@ -342,17 +349,17 @@ class Tester:
 
             return exists
 
-        def __postUpdateActions(self, isInstalling: bool, device: str):
+        def __postUpdateActions(self, isInstalling: bool):
             if isInstalling:
                 self.__cli.p_success(f"Tester [v{self.__rawVersionGit}] installed successfully!")
             else:
                 self.__cli.p_success(f"Tester [v{self.__rawVersionGit}] updated successfully!")
 
                 # Restarts the script
-                if device != "ios":
+                if self.device != "ios":
                     os.execv(sys.executable, ['python'] + sys.argv + ['__restartTester'])
 
-        def getTester(self, device: str):
+        def getTester(self):
             isInstalling = False if self.__testerFile_exists() else True
 
             if (self.__intVersionLocal < self.__intVersionGit) or isInstalling:
@@ -362,12 +369,12 @@ class Tester:
                 else:
                     self.__cli.p_warning(f"Installing Tester.py [v{self.__rawVersionGit}]...")
 
-                if device == "ios":
+                if self.device == "ios":
                     self.__ios_update_install()
-                    self.__postUpdateActions(isInstalling, device)
+                    self.__postUpdateActions(isInstalling)
                 else:
                     self.__pc_update_install()
-                    self.__postUpdateActions(isInstalling, device)
+                    self.__postUpdateActions(isInstalling)
 
     @staticmethod
     def __detectDebugFlag() -> bool:
@@ -399,7 +406,7 @@ class Tester:
         cli.p_warning("Re-running Tester...")
 
     def __init__(self):
-        self.__version = "0.2.005"
+        self.__version = "0.2.006"
 
         # Search for run command arguments
         self.__device = self.__detectDevice()
@@ -421,8 +428,7 @@ class Tester:
             global console
             import console
 
-            _ = console     # Just to avoid lazy PyCharm warning
-            del _
+            _ = console; del _     # Just to avoid lazy PyCharm warning
         else:
             # Import colorama on Windows/MacOS/etc
             try:
@@ -445,12 +451,14 @@ class Tester:
             self.__init__()
 
         # Init Version Manager
-        self.__versionManager = self.__VersionManager(cli=self.__cli, currentVersion=self.__version)
-
-        # Try to update Tester
-        self.__versionManager.getTester(
+        self.__versionManager = self.__VersionManager(
+            cli=self.__cli,
+            currentVersion=self.__version,
             device=self.__device
         )
+
+        # Try to update Tester
+        self.__versionManager.getTester()
 
         if "Tester" == __name__:
             self.test1 = self.__Test1(debug=self.__debug)
