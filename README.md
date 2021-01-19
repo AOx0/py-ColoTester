@@ -15,36 +15,31 @@ Python script to give homework/work/tests to anyone learning python, in my case 
     -   [Tester.test2](https://github.com/AOx0/py-ColoTester#testertest2)
     -   [Tester.test3](https://github.com/AOx0/py-ColoTester#testertest3)
     -   [Tester.test4](https://github.com/AOx0/py-ColoTester#testertest4)
+    -   [Tester.test5](https://github.com/AOx0/py-ColoTester#testertest5)
 
 
 
 ## Installation
 
-If you have installed the `requests` module you can use the code provided for the Pythonista 3 installation method.
 
-To install open your shell/cmd/terminal/etc and **go to the path where your learning folder is** (with all your *.py files) **and write the command**:
+
+### Requirements
+
+#### requests
+
+To intsall `requests` module use `pip`
 
 ```shell
-curl -sS https://raw.githubusercontent.com/AOx0/py-ColoTester/SiteImp/Tester.py -o Tester.py
+python -m pip install requests
 ```
 
-The command will create a file named `Tester.py` that you can then import to files in the same directory.
 
 
-
-*NOTE*: *If you know how imports work then write the command at any path and make sure to import Tester correctly in your python files.*
-
-
-
-#### Installation - Pythonista 3 
-
-To install the Tester make a new file or go to the Console view and paste-run the code:
+Then run the following code with python:
 
 ```python
 import requests as r;exec(r.get("https://raw.githubusercontent.com/AOx0/py-ColoTester/SiteImp/Tester.py").content)
 ```
-
-The code will create a file named `Tester.py` that you can then import to files in the same directory. 
 
 
 
@@ -63,7 +58,7 @@ The code will create a file named `Tester.py` that you can then import to files 
 
 ### Importing Tester
 
-1.  Import `Tester` in any python file **inside the folder where you used the installation command** and access to the Tester's `test` you want.
+1.  Import `Tester` and access to the `test` you want.
 
 ```python
 from Tester import Tester
