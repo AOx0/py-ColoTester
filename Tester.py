@@ -279,7 +279,9 @@ class Tester:
 
         def __get_installation_path(self) -> str:
             import site
-            path = site.USER_SITE if self.device != "windows" else self.__get_installation_path()
+
+            path = site.USER_SITE if self.device != "windows" else os.path.expanduser('~/Documents/site-packages-3')\
+                if self.device == "ios" else self.__find_sitePackages_windows()
 
             return path
 
@@ -326,13 +328,12 @@ class Tester:
             return requests.get("https://raw.githubusercontent.com"
                                 "/AOx0/py-ColoTester/SiteImp/Tester.py").content.decode("utf-8")
 
-        @staticmethod
-        def __ios_update_install():
+        def __ios_update_install(self):
             contents = requests.get(
                 "https://raw.githubusercontent.com/AOx0/py-ColoTester/SiteImp/Tester.py").content.decode(
                 "utf-8")
 
-            with open(f"{os.path.expanduser('~/Documents/site-packages-3')}/"
+            with open(f"{self.installationPath}/"
                       "Tester.py", "w+", encoding="utf-8") as f:
                 f.seek(0)
                 f.write(contents)
@@ -421,7 +422,7 @@ class Tester:
         cli.p_warning("Re-running Tester...")
 
     def __init__(self):
-        self.__version = "0.2.012"
+        self.__version = "0.2.013"
 
         # Search for run command arguments
         self.__device = self.__detectDevice()
@@ -474,6 +475,9 @@ class Tester:
 
         # Try to update Tester
         self.__versionManager.getTester()
+
+        del self.__versionManager
+        del self.__cli
 
         if "Tester" == __name__:
             self.test1 = self.__Test1(debug=self.__debug)
