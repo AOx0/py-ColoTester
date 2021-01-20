@@ -25,6 +25,26 @@ Python script to give homework/work/tests to anyone learning python, in my case 
 
 ### Requirements
 
+#### pip
+
+Ubuntu:
+
+```
+sudo apt intall python3-pip
+```
+
+
+
+#### curl
+
+Ubuntu:
+
+```
+sudo apt install curl
+```
+
+
+
 #### requests
 
 To intsall `requests` module use `pip`
@@ -34,6 +54,8 @@ python -m pip install requests
 ```
 
 
+
+### Installation
 
 Then run the following code with python:
 
