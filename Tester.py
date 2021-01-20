@@ -271,9 +271,11 @@ class Tester:
 
             self.__intVersionGit = self.__version_to_int(version=self.__rawVersionGit)
             self.__intVersionLocal = self.__version_to_int(version=self.__rawVersionLocal)
+
             self.__cli = cli
-            self.installationPath = self.__get_installation_path()
             self.device = device
+
+            self.installationPath = self.__get_installation_path()
 
         def __get_installation_path(self) -> str:
             import site
@@ -419,7 +421,7 @@ class Tester:
         cli.p_warning("Re-running Tester...")
 
     def __init__(self):
-        self.__version = "0.2.011"
+        self.__version = "0.2.012"
 
         # Search for run command arguments
         self.__device = self.__detectDevice()
