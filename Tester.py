@@ -280,8 +280,10 @@ class Tester:
         def __get_installation_path(self) -> str:
             import site
 
-            path = site.USER_SITE if self.device != "windows" else os.path.expanduser('~/Documents/site-packages-3')\
-                if self.device == "ios" else self.__find_sitePackages_windows()
+            path = self.__find_sitePackages_windows() if self.device == "windows" else (
+                os.path.expanduser('~/Documents/site-packages-3')
+                if self.device == "ios" else site.USER_SITE
+            )
 
             return path
 
@@ -333,8 +335,7 @@ class Tester:
                 "https://raw.githubusercontent.com/AOx0/py-ColoTester/SiteImp/Tester.py").content.decode(
                 "utf-8")
 
-            with open(f"{self.installationPath}/"
-                      "Tester.py", "w+", encoding="utf-8") as f:
+            with open(f"{self.installationPath}/Tester.py", "w+", encoding="utf-8") as f:
                 f.seek(0)
                 f.write(contents)
                 f.truncate()
@@ -422,7 +423,7 @@ class Tester:
         cli.p_warning("Re-running Tester...")
 
     def __init__(self):
-        self.__version = "0.2.013"
+        self.__version = "0.2.014"
 
         # Search for run command arguments
         self.__device = self.__detectDevice()
