@@ -290,7 +290,7 @@ class Tester:
         @staticmethod
         def __get_versionGithub_usingRequests():
             version: str = requests.get(
-                'https://raw.githubusercontent.com/AOx0/py-ColoTester/SiteImp/version.txt').content.decode("utf-8")
+                'https://raw.githubusercontent.com/AOx0/py-ColoTester/master/version.txt').content.decode("utf-8")
 
             finalVersion = ""
             for i in version:
@@ -325,14 +325,9 @@ class Tester:
             version = fixVersion(version)
             return makeFinalInt()
 
-        @staticmethod
-        def __get_testerScript_usingRequests():
-            return requests.get("https://raw.githubusercontent.com"
-                                "/AOx0/py-ColoTester/SiteImp/Tester.py").content.decode("utf-8")
-
         def __ios_update_install(self):
             contents = requests.get(
-                "https://raw.githubusercontent.com/AOx0/py-ColoTester/SiteImp/Tester.py").content.decode(
+                "https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py").content.decode(
                 "utf-8")
 
             with open(f"{self.installationPath}/Tester.py", "w+", encoding="utf-8") as f:
@@ -354,7 +349,7 @@ class Tester:
         def __pc_update_install(self):
             dirCharacter = "\\" if self.device == "windows" else "/"
             os.system(
-                f"curl -sS https://raw.githubusercontent.com/AOx0/py-ColoTester/SiteImp/Tester.py -o "
+                f"curl -sS https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py -o "
                 f"{self.installationPath}{dirCharacter}Tester.py")
 
         def __testerFile_exists(self) -> bool:
@@ -424,7 +419,7 @@ class Tester:
         cli.p_warning("Re-running Tester...")
 
     def __init__(self):
-        self.__version = "0.2.016"
+        self.__version = "0.2.017"
 
         # Search for run command arguments
         self.__device = self.__detectDevice()
