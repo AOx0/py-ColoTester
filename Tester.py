@@ -424,7 +424,7 @@ class Tester:
         cli.p_warning("Re-running Tester...")
 
     def __init__(self):
-        self.__version = "0.2.015"
+        self.__version = "0.2.016"
 
         # Search for run command arguments
         self.__device = self.__detectDevice()
@@ -477,6 +477,10 @@ class Tester:
 
         # Try to update Tester
         self.__versionManager.getTester()
+
+        # Once updated versionManager and cli are useless
+        del self.__versionManager
+        del self.__cli
 
         if "Tester" == __name__:
             self.test1 = self.__Test1(debug=self.__debug)
