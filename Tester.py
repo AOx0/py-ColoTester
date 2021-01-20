@@ -275,10 +275,11 @@ class Tester:
             self.installationPath = self.__get_installation_path()
             self.device = device
 
-        @staticmethod
-        def __get_installation_path() -> str:
+        def __get_installation_path(self) -> str:
             import site
-            return site.USER_SITE
+            path = site.USER_SITE if self.device != "windows" else self.__get_installation_path()
+
+            return path
 
         @staticmethod
         def __get_versionGithub_usingRequests():
@@ -336,6 +337,15 @@ class Tester:
                 f.truncate()
                 f.close()
 
+        @staticmethod
+        def __find_sitePackages_windows():
+            path = ""
+            for path_ in sys.path:
+                if 'site-packages' in path_:
+                    path = path_.replace('\\', '\\\\')
+
+            return path
+
         def __pc_update_install(self):
             dirCharacter = "\\" if self.device == "windows" else "/"
             os.system(
@@ -343,7 +353,8 @@ class Tester:
                 f"{self.installationPath}{dirCharacter}Tester.py")
 
         def __testerFile_exists(self) -> bool:
-            dirCharacter = "\\" if self.device == "windows" else "/"
+            dirCharacter = "\\" if (self.device == "windows") else "/"
+
             if os.path.exists(f"{self.installationPath}{dirCharacter}Tester.py"):
                 exists = True
             else:
@@ -408,7 +419,7 @@ class Tester:
         cli.p_warning("Re-running Tester...")
 
     def __init__(self):
-        self.__version = "0.2.010"
+        self.__version = "0.2.011"
 
         # Search for run command arguments
         self.__device = self.__detectDevice()
