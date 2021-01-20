@@ -21,31 +21,17 @@ Python script to give homework/work/tests to anyone learning python, in my case 
 
 ## Installation
 
+After fulfilling the [requirements](https://github.com/AOx0/py-ColoTester/tree/SiteImp#requirements). Run the following code with python:
+
+```python
+import requests as r;exec(r.get("https://raw.githubusercontent.com/AOx0/py-ColoTester/SiteImp/Tester.py").content)
+```
+
 
 
 ### Requirements
 
-#### pip
-
-Ubuntu:
-
-```
-sudo apt intall python3-pip
-```
-
-
-
-#### curl
-
-Ubuntu:
-
-```
-sudo apt install curl
-```
-
-
-
-#### requests
+#### 1. requests module
 
 To intsall `requests` module use `pip`
 
@@ -55,12 +41,14 @@ python -m pip install requests
 
 
 
-### Installation
+#### 2. curl
 
-Then run the following code with python:
+Windows and MacOS already include cURL. 
 
-```python
-import requests as r;exec(r.get("https://raw.githubusercontent.com/AOx0/py-ColoTester/SiteImp/Tester.py").content)
+On Ubuntu:
+
+```shell
+sudo apt install curl
 ```
 
 
@@ -177,7 +165,7 @@ Remember:
 | ------------------------- | --------------------------------------------------- |
 | Daniel<br />27<br />Spain | Hi, my name is Daniel from Spain. I'm 27 years old. |
 
-As always, to test your function pass it's name as an argument to `Tester.test1.test()`. E.g. `Tester.test1.test(myFunctionName)`
+As always, to test your function pass it's name as an argument to `Tester.test1.test()`. E.g. `Tester.test1.test(myFunctionName)` or use the decorator `@Test.One`
 
  <br />
 
@@ -198,7 +186,7 @@ Write a function that replicates the mathematical function `f(x, y) = ∜(x² + 
 | ----------------- | ----------------- |
 | x = 4,<br />y = 5 | 4.033204557385719 |
 
-As always, to test your function pass it's name as an argument to `Tester.test2.test()`. E.g. `Tester.test2.test(myFunctionName)`
+As always, to test your function pass it's name as an argument to `Tester.test2.test()`. E.g. `Tester.test2.test(myFunctionName)` or use the decorator `@Test.Two`
 
  <br />
 
@@ -217,7 +205,7 @@ Write a function that has two inputs that are supposed to receive `int`. If both
 | --------- | ------ |
 | 10<br />3 | major  |
 
-As always, to test your function pass it's name as an argument to `Tester.test3.test()`. E.g. `Tester.test3.test(myFunctionName)`
+As always, to test your function pass it's name as an argument to `Tester.test3.test()`. E.g. `Tester.test3.test(myFunctionName)` or use the decorator `@Test.Three`
 
 <br />
 
@@ -243,9 +231,9 @@ To finish, print the final price with the format: **"Final price is `FINAL_PRICE
 | --------------------------------------------------- | -------------------- |
 | 130<br />27<br />34<br />51<br />223<br />48<br />0 | Final price is 461.7 |
 
-As always, to test your function pass it's name as an argument to `Tester.test4.test()`. E.g. `Tester.test4.test(myFunctionName)`
+As always, to test your function pass it's name as an argument to `Tester.test4.test()`. E.g. `Tester.test4.test(myFunctionName)` or use the decorator `@Test.Four`
 
-
+ 
 
 <br />
 
@@ -264,7 +252,7 @@ As always, to test your function pass it's name as an argument to `Tester.test4.
 | ------ | ------ |
 | ARRAAR | F      |
 
-As always, to test your function pass it's name as an argument to `Tester.test5.test()`. E.g. `Tester.test5.test(myFunctionName)`
+As always, to test your function pass it's name as an argument to `Tester.test5.test()`. E.g. `Tester.test5.test(myFunctionName)` or use the decorator `@Test.Five`
 
 
 
