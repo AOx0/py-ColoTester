@@ -347,6 +347,7 @@ class Tester:
             for path_ in sys.path:
                 if 'site-packages' in path_:
                     path = path_.replace('\\', '\\\\')
+                    break
 
             return path
 
@@ -423,7 +424,7 @@ class Tester:
         cli.p_warning("Re-running Tester...")
 
     def __init__(self):
-        self.__version = "0.2.014"
+        self.__version = "0.2.015"
 
         # Search for run command arguments
         self.__device = self.__detectDevice()
@@ -476,9 +477,6 @@ class Tester:
 
         # Try to update Tester
         self.__versionManager.getTester()
-
-        del self.__versionManager
-        del self.__cli
 
         if "Tester" == __name__:
             self.test1 = self.__Test1(debug=self.__debug)
