@@ -24,7 +24,7 @@ Python script to give homework/work/tests to anyone learning python, in my case 
 After fulfilling the [requirements](https://github.com/AOx0/py-ColoTester/tree/master#requirements). Run the following code with python:
 
 ```python
-import requests as r;exec(r.get("https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py").content)
+import requests as r;exec(r.get("https://git.io/JLb6G").content)
 ```
 
 
