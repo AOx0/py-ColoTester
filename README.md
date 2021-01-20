@@ -15,36 +15,41 @@ Python script to give homework/work/tests to anyone learning python, in my case 
     -   [Tester.test2](https://github.com/AOx0/py-ColoTester#testertest2)
     -   [Tester.test3](https://github.com/AOx0/py-ColoTester#testertest3)
     -   [Tester.test4](https://github.com/AOx0/py-ColoTester#testertest4)
+    -   [Tester.test5](https://github.com/AOx0/py-ColoTester#testertest5)
 
 
 
 ## Installation
 
-If you have installed the `requests` module you can use the code provided for the Pythonista 3 installation method.
-
-To install open your shell/cmd/terminal/etc and **go to the path where your learning folder is** (with all your *.py files) **and write the command**:
-
-```shell
-curl -sS https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py -o Tester.py
-```
-
-The command will create a file named `Tester.py` that you can then import to files in the same directory.
-
-
-
-*NOTE*: *If you know how imports work then write the command at any path and make sure to import Tester correctly in your python files.*
-
-
-
-#### Installation - Pythonista 3 
-
-To install the Tester make a new file or go to the Console view and paste-run the code:
+After fulfilling the [requirements](https://github.com/AOx0/py-ColoTester/tree/master#requirements). Run the following code with python:
 
 ```python
-import requests as r;exec(r.get("https://raw.githubusercontent.com/AOx0/py-ColoTester/master/Tester.py").content)
+import requests as r;exec(r.get("https://git.io/JLb6G").content)
 ```
 
-The code will create a file named `Tester.py` that you can then import to files in the same directory. 
+
+
+### Requirements
+
+#### 1. requests module
+
+To intsall `requests` module use `pip`
+
+```shell
+python -m pip install requests
+```
+
+
+
+#### 2. curl
+
+Windows and MacOS already include cURL. 
+
+On Ubuntu:
+
+```shell
+sudo apt install curl
+```
 
 
 
@@ -63,7 +68,7 @@ The code will create a file named `Tester.py` that you can then import to files 
 
 ### Importing Tester
 
-1.  Import `Tester` in any python file **inside the folder where you used the installation command** and access to the Tester's `test` you want.
+1.  Import `Tester` and access to the `test` you want.
 
 ```python
 from Tester import Tester
@@ -160,7 +165,7 @@ Remember:
 | ------------------------- | --------------------------------------------------- |
 | Daniel<br />27<br />Spain | Hi, my name is Daniel from Spain. I'm 27 years old. |
 
-As always, to test your function pass it's name as an argument to `Tester.test1.test()`. E.g. `Tester.test1.test(myFunctionName)`
+As always, to test your function pass it's name as an argument to `Tester.test1.test()`. E.g. `Tester.test1.test(myFunctionName)` or use the decorator `@Test.One`
 
  <br />
 
@@ -181,7 +186,7 @@ Write a function that replicates the mathematical function `f(x, y) = ∜(x² + 
 | ----------------- | ----------------- |
 | x = 4,<br />y = 5 | 4.033204557385719 |
 
-As always, to test your function pass it's name as an argument to `Tester.test2.test()`. E.g. `Tester.test2.test(myFunctionName)`
+As always, to test your function pass it's name as an argument to `Tester.test2.test()`. E.g. `Tester.test2.test(myFunctionName)` or use the decorator `@Test.Two`
 
  <br />
 
@@ -200,7 +205,7 @@ Write a function that has two inputs that are supposed to receive `int`. If both
 | --------- | ------ |
 | 10<br />3 | major  |
 
-As always, to test your function pass it's name as an argument to `Tester.test3.test()`. E.g. `Tester.test3.test(myFunctionName)`
+As always, to test your function pass it's name as an argument to `Tester.test3.test()`. E.g. `Tester.test3.test(myFunctionName)` or use the decorator `@Test.Three`
 
 <br />
 
@@ -226,9 +231,9 @@ To finish, print the final price with the format: **"Final price is `FINAL_PRICE
 | --------------------------------------------------- | -------------------- |
 | 130<br />27<br />34<br />51<br />223<br />48<br />0 | Final price is 461.7 |
 
-As always, to test your function pass it's name as an argument to `Tester.test4.test()`. E.g. `Tester.test4.test(myFunctionName)`
+As always, to test your function pass it's name as an argument to `Tester.test4.test()`. E.g. `Tester.test4.test(myFunctionName)` or use the decorator `@Test.Four`
 
-
+ 
 
 <br />
 
@@ -247,7 +252,7 @@ As always, to test your function pass it's name as an argument to `Tester.test4.
 | ------ | ------ |
 | ARRAAR | F      |
 
-As always, to test your function pass it's name as an argument to `Tester.test5.test()`. E.g. `Tester.test5.test(myFunctionName)`
+As always, to test your function pass it's name as an argument to `Tester.test5.test()`. E.g. `Tester.test5.test(myFunctionName)` or use the decorator `@Test.Five`
 
 
 
